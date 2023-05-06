@@ -1,0 +1,9 @@
+@import url("../pages/styles/home_style.css");
+@import url("../pages/styles/formadd_style.css");
+
+.main .content {
+    background-color: var(--bg-color);
+    flex: 1;
+    margin-left: calc(var(--sidebar-width) + 8px);
+    /* height: 1000px; */
+}

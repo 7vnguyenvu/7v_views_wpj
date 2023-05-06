@@ -1,0 +1,107 @@
+/* ### LOGO ################################# */
+header .logo {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+}
+header .logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+}
+.logo__img {
+    height: 40px;
+}
+.logo__name {
+    font-size: 20px;
+    margin-left: 16px;
+}
+
+/* ### SEARCH ############################### */
+header .search {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.search__input {
+    --height: 32px;
+    flex: 1;
+    height: var(--height);
+    border-radius: calc(var(--height) / 2);
+    box-shadow: 0 2px 4px var(--primary-color);
+    border: none;
+    padding: 12px;
+    padding-right: 76px;
+    outline: none;
+}
+
+.search:focus-within input {
+    box-shadow: 0 2px 4px var(--second-color);
+}
+
+.search:focus-within .search__bulkhead {
+    background-color: var(--second-color);
+}
+
+.search__bulkhead {
+    width: 1px;
+    height: 24px;
+    border-radius: 1px;
+    background-color: var(--primary-color);
+    position: absolute;
+    right: 64px;
+}
+
+.search__find-icon {
+    color: var(--primary-color);
+    position: absolute;
+    right: 0;
+    padding: 8px 24px;
+    cursor: pointer;
+}
+
+.search__find-icon:hover {
+    color: var(--second-color);
+}
+
+/* ### ACTION ############################### */
+header .action {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    padding: 0 24px;
+}
+
+.action__user {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 12px;
+}
+
+.action__user img {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.action__notify {
+    color: #ffa100;
+    padding: 0 12px;
+    cursor: pointer;
+    margin-left: 12px;
+}
+
+.action__blogs {
+    font-weight: 500;
+    cursor: pointer;
+}

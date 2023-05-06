@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;600;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300;500&display=swap");
+@import url("./root.css");
+@import url("./header.css");
+@import url("./sidebar.css");
+@import url("./content.css");
+
+body {
+    background-color: var(--bg-color);
+    color: #000;
+    display: flex;
+    justify-content: center;
+    font-family: "Kanit", sans-serif;
+    overflow: overlay;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: var(--display-width);
+    padding: 0 24px;
+}
+
+/* ### HEADER ############################### */
+.container header {
+    background-color: var(--bg-color);
+    height: var(--header-height);
+    box-shadow: 0 1px 4px var(--gray-color);
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+/* ### MAIN ################################# */
+.container .main {
+    margin-top: calc(var(--header-height) + 12px);
+    position: relative;
+    display: flex;
+    z-index: 0;
+}

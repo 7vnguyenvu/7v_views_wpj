@@ -1,0 +1,143 @@
+.home {
+    display: flex;
+}
+
+/* ### HOME - TABLE MANAGER ##################### */
+.home__table {
+    width: calc(100% - 300px);
+}
+
+.home__table .tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    position: sticky;
+    top: 70px;
+}
+
+.home__table .tab button {
+    min-width: 200px;
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+.home__table .tab button:hover {
+    background-color: #ddd;
+}
+
+.home__table .tab button.active {
+    font-weight: bold;
+    color: #f73ab1;
+    background-color: #ccc;
+}
+
+.home__table .tabcontent {
+    display: none;
+    border: 1px solid #ccc;
+    border-top: none;
+    animation: fadeEffect linear 0.5s;
+}
+.home__table .tabcontent button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    background: url(/images/commons/plus-icon.png) no-repeat center / 100% 100%;
+    border-radius: 50px;
+    position: absolute;
+    right: 32px;
+    bottom: 12px;
+}
+.home__table .tabcontent button:hover {
+    cursor: pointer;
+    transform: scale(1.1, 1.1);
+}
+.home__table .tabcontent button:active {
+    transform: scale(-1, -1);
+}
+
+@keyframes fadeEffect {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.home__table #customers {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.home__table #customers td,
+.home__table #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.home__table #customers td:first-child,
+.home__table #customers th:first-child {
+    text-align: center;
+}
+
+.home__table #customers tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.home__table #customers tr:hover {
+    background-color: #aaa;
+}
+
+.home__table #customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: var(--second-color);
+    color: white;
+    position: sticky;
+    top: calc(70px + 46px);
+}
+.home__table #customers th:first-child {
+    width: 50px;
+}
+
+/* ### HOME - ACTION MANAGER #################### */
+.home__action {
+    width: 300px;
+    height: 400px;
+    margin-top: 20px;
+    padding-left: 20px;
+    position: sticky;
+    top: 70px;
+    right: 24px;
+    z-index: 1;
+}
+
+.home__action-select {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.home__action-select a {
+    height: 36px;
+    padding: 0 8px;
+    text-decoration: none;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    margin-bottom: 4px;
+}
+
+.home__action-select a:hover {
+    background-color: #7d7d7d20;
+    color: var(--second-color);
+}

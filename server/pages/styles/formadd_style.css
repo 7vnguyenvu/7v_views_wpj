@@ -1,0 +1,63 @@
+form.add-form {
+    border-left: 4px solid var(--primary-color);
+    display: flex;
+    flex-direction: column;
+}
+
+form.add-form .row_title {
+    background-color: #e7e7e7;
+    font-size: 40px;
+    padding-left: 24px;
+    margin-bottom: 20px;
+    position: sticky;
+    top: 70px;
+    z-index: 1;
+}
+
+form.add-form .cluster {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+form.add-form .row {
+    padding-left: 24px;
+    width: 100%;
+    display: flex;
+    margin-bottom: 8px;
+}
+
+form.add-form .cluster__row {
+    width: 50%;
+}
+
+form.add-form label {
+    width: var(--width);
+}
+form.add-form input {
+    padding: 4px 8px;
+}
+
+form.add-form .row :last-child {
+    flex: 1;
+}
+
+form.add-form .row button {
+    background-color: var(--bgc);
+    color: var(--clr);
+    padding: 16px;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    outline: none;
+}
+
+form.add-form .row button:hover {
+    background-color: var(--hover);
+    cursor: pointer;
+}
+
+form.add-form .row button:active {
+    background-color: var(--bgc);
+    cursor: progress;
+}
