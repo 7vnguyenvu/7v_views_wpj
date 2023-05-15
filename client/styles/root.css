@@ -1,0 +1,40 @@
+/* RESET CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* --display-width: 1280px; */
+    --display-width: 100%;
+
+    --primary-color: #ff4794;
+    --primary-light: #ba356c;
+    --second-color: #ffa100;
+    --bg-color: #ffffff;
+    --gray-color: #7d7d7d;
+
+    --light-color: #e7e7e7;
+    --dark-color: #2e2e2e;
+
+    --header-width: 1280px;
+    --header-height: 70px;
+
+    --sidebar-width: 100px;
+    --sidebar-height: 600px;
+}
+
+html ::-webkit-scrollbar {
+    border-radius: 0;
+    height: 8px;
+    width: 8px;
+}
+html ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+}
+html ::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 0;
+}

@@ -6,7 +6,7 @@ if (isset($_POST['add_news'])) {
     $get_new_id = mysqli_query($connection, "select max(_id) + 1 as next_id from news");
     date_default_timezone_set('Asia/Ho_Chi_Minh');
 
-    $news_image__path = "http://localhost/DO_AN_WEB/server/uploads/news_imgs/";
+    $news_image__path = "uploads/news_imgs/";
     $news_image__path = $news_image__path . uniqid() . "__" . basename($_FILES['typical_image']['name']);
     move_uploaded_file($_FILES['typical_image']['tmp_name'], "../" . $news_image__path);
 
@@ -58,10 +58,10 @@ if (isset($_POST['add_news'])) {
 
     $blog_image__path = "";
     if (isset($_FILES['typical_image']['name']) && $_FILES['typical_image']['name'] != "") {
-        $blog_image__path = "http://localhost/DO_AN_WEB/server/uploads/blog_imgs/" . uniqid() . "__" . basename($_FILES['typical_image']['name']);
+        $blog_image__path = "uploads/blog_imgs/" . uniqid() . "__" . basename($_FILES['typical_image']['name']);
         move_uploaded_file($_FILES['typical_image']['tmp_name'], "../" . $blog_image__path);
     } else {
-        $blog_image__path = "http://localhost/DO_AN_WEB/server/images/no-image.png";
+        $blog_image__path = "images/no-image.png";
     }
 
     $blogs_tmp = (object) [
@@ -109,7 +109,7 @@ if (isset($_POST['add_news'])) {
 
             $sql_postaccount = "insert into accounts values ($next_account_id,'$uname','$urepass',$default_level, $default_lock)";
 
-            $sql_postuser = "insert into users values ($new_user_id, $next_account_id, '', '$name_of_user', '$name_of_user', '@$nickname_user', '', '', 'images/no-image-user.png', 'http://localhost/DO_AN_WEB/server/images/no-image-cover.png', 0, 0, '', '', '', '')";
+            $sql_postuser = "insert into users values ($new_user_id, $next_account_id, '', '$name_of_user', '$name_of_user', '@$nickname_user', '', '', 'images/no-image-user.png', 'images/no-image-cover.png', 0, 0, '', '', '', '')";
 
             mysqli_query($connection, $sql_postaccount);
             mysqli_query($connection, $sql_postuser);

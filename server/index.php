@@ -1,4 +1,10 @@
 <?php session_start();
+include "./configs/dbconfig.php";
+$account = isset($_SESSION['user_logged']) ? $_SESSION['user_logged'] : null;
+$user = null;
+if ($account != null) {
+    $user = mysqli_fetch_array(mysqli_query($connection, "select * from users where ACCOUNTS_ID = $account->_id"), 1);
+}
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 ?>
 <!DOCTYPE html>

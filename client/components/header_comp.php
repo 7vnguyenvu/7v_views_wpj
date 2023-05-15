@@ -2,7 +2,7 @@
     <div class="logo">
         <a href="./">
             <img class="logo__img" src="./images/logo.png" alt="Hình của logo">
-            <h2 class="logo__name">7V Views | Server</h2>
+            <h2 class="logo__name">7V Views</h2>
         </a>
     </div>
     <div class="search">
@@ -13,13 +13,16 @@
     <div class="action">
         <?php
         if ($account != null) {
-            $user_avt = trim($user['AVATAR']) != "" ? $user['AVATAR'] : 'images/no-image-user.png';
+            $user_avt = trim($user->avatar) != "" ? $user->avatar : 'http://localhost/DO_AN_WEB/server/images/no-image-user.png';
 
-            echo '<p class="action__blogs">Bài viết của tôi</p>
-            <i class="fa-solid fa-bell action__notify"></i>
-            <div id="action__user" class="action__user">
-                <img src="' . $user_avt . '" alt="Hình của user">
-            </div>';
+            echo '
+                <p class="action__blogs">Bài viết của tôi</p>
+                <i class="fa-solid fa-bell action__notify"></i>
+                <div id="action__user" class="action__user">
+                    <p>' . $user->full_name . '</p>
+                    <img src="' . $user_avt . '" alt="Hình của user">
+                </div>
+            ';
         } else {
             echo '<button id="bSignUp" style="--bcolor: #ffff00; --color: var(--dark-color); --hover: var(--second-color)" >Đăng ký</button>';
             echo '<button id="bSignIn" style="--bcolor: var(--primary-color); --color: var(--light-color); --hover: #e00552" >Đăng nhập</button>';

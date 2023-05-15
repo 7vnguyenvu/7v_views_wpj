@@ -20,9 +20,14 @@
             <p>Blogs</p>
         </a>
 
-        <a href="http://localhost/DO_AN_WEB/client/" target="_blank">
-            <i class="fa-solid fa-tv"></i>
-            <p>Client</p>
+        <a href="?page=explore" class="
+        <?php if ($page == 'explore') {
+            echo "active";
+        } else {
+            echo "";
+        } ?>">
+            <i class="fa-solid fa-compass"></i>
+            <p>Khám phá</p>
         </a>
     </nav>
 

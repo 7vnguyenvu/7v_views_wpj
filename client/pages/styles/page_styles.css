@@ -1,0 +1,183 @@
+.home {
+    display: flex;
+}
+
+/* ### HOME - CONTENT ##################### */
+.home__content {
+    width: calc(100% - 250px);
+    border-right: 1px solid #000;
+}
+
+/* ### HOME - ACTION MANAGER #################### */
+.home__action {
+    background-color: var(--bg-color);
+    width: 250px;
+    height: 500px;
+    margin-top: 20px;
+    padding-left: 20px;
+    position: sticky;
+    top: 70px;
+    right: 24px;
+    z-index: 1;
+    overflow: overlay;
+}
+
+.home__action h2 {
+    background-color: var(--bg-color);
+    position: sticky;
+    top: 0;
+}
+
+.home__action-select {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.home__action-select a {
+    height: 36px;
+    padding: 0 8px;
+    text-decoration: none;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    margin-bottom: 4px;
+}
+
+.home__action-select a:hover {
+    background-color: #7d7d7d20;
+    color: var(--second-color);
+}
+
+/* ### FORM - ACTION MANAGER #################### */
+form.add-form {
+    border-left: 4px solid var(--primary-color);
+    display: flex;
+    flex-direction: column;
+}
+
+form.add-form .row_title {
+    background-color: #e7e7e7;
+    font-size: 40px;
+    padding-left: 24px;
+    margin-bottom: 20px;
+    position: sticky;
+    top: 70px;
+    z-index: 1;
+}
+
+form.add-form .cluster {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+form.add-form .cluster.visible {
+    display: none;
+}
+
+form.add-form .row {
+    padding-left: 24px;
+    width: 100%;
+    display: flex;
+    margin-bottom: 8px;
+}
+
+form.add-form .cluster__row {
+    width: 50%;
+}
+
+form.add-form label {
+    width: var(--width);
+}
+
+form.add-form textarea,
+form.add-form input {
+    padding: 4px 8px;
+}
+
+form.add-form #blog__tyimg-label {
+    width: 400px;
+    height: 225px;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    font-size: 24px;
+    text-align: center;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+form.add-form #blog__tyimg-label p {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+form.add-form #blog__tyimg-label p :last-child {
+    font-size: 50px;
+    margin-top: 30px;
+}
+
+form.add-form #blog__tyimg-label:hover,
+#del_img:hover,
+#reset_img:hover {
+    cursor: pointer;
+    background-color: #e64186;
+}
+
+form.add-form .blog__tyimg-input {
+    display: none;
+}
+.typical_image-action {
+    margin-left: 24px;
+    display: flex;
+    justify-content: center;
+}
+#del_img,
+#reset_img {
+    display: none;
+    width: 150px;
+    text-align: center;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    border-radius: 12px;
+    margin: 0 12px;
+}
+
+#del_img {
+    display: block;
+}
+
+form.add-form .blog__title-input {
+    border: none;
+    outline: none;
+    padding: 12px 20px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+form.add-form .row :last-child {
+    flex: 1;
+}
+
+form.add-form .row button {
+    background-color: var(--bgc);
+    color: var(--clr);
+    padding: 16px;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    outline: none;
+}
+
+form.add-form .row button:hover {
+    background-color: var(--hover);
+    cursor: pointer;
+}
+
+form.add-form .row button:active {
+    background-color: var(--bgc);
+    cursor: progress;
+}

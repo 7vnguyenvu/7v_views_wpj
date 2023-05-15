@@ -1,7 +1,7 @@
 <?php
 include_once "./configs/dbconfig.php";
 
-$str = "select news._ID as N_ID, news.*, topics.* from news, topics where news.TOPIC_ID = topics._ID order by news.CREATED_AT desc";
+$str = "select news._ID as N_ID, news.*, topics.* from news, topics where news.TOPIC_ID = topics._ID order by N_ID desc";
 $get_news_and_topics = mysqli_query($connection, $str);
 $get_topics = mysqli_query($connection, "select * from topics");
 ?>
@@ -20,28 +20,31 @@ $get_topics = mysqli_query($connection, "select * from topics");
         <!-- Tab content -->
         <div id="News" class="tabcontent">
             <table id="customers">
-                <tr>
-                    <th>#</th>
-                    <th>Tiêu đề</th>
-                    <th width="120px">Chủ đề</th>
-                    <th width="200px">Ngày đăng</th>
-                    <th width="100px" colspan='2'>Tùy chỉnh</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tiêu đề</th>
+                        <th width="120px">Chủ đề</th>
+                        <th width="200px">Ngày đăng</th>
+                        <th width="100px" colspan='2'>Tùy chỉnh</th>
+                    </tr>
+                </thead>
 
-                <?php
-                while ($news_i = mysqli_fetch_array($get_news_and_topics)) {
+                <tbody>
+                    <?php
+                    while ($news_i = mysqli_fetch_array($get_news_and_topics)) {
 
-                    echo '<tr>
-                            <td>' . $news_i['N_ID'] . '</td>
-                            <td>' . $news_i['TITLE'] . '</td>
-                            <td>' . $news_i['TOPIC_NAME'] . '</td>
-                            <td>' . $news_i['CREATED_AT'] . '</td>
-                            <td><a href="#">sửa</a></td>
-                            <td><a href="#">xóa</a></td>
-                        </tr>
-                    ';
-                }
-                ?>
+                        echo '<tr>
+                                <td>' . $news_i['N_ID'] . '</td>
+                                <td>' . $news_i['TITLE'] . '</td>
+                                <td>' . $news_i['TOPIC_NAME'] . '</td>
+                                <td>' . $news_i['CREATED_AT'] . '</td>
+                                <td><a href="?page=edit_news&id=' . $news_i['N_ID'] . '">sửa</a></td>
+                                <td><a href="./controling/handle_delete.php?del_news&id=' . $news_i['N_ID'] . '" onclick="Handle_OnDel(event, ' . $news_i['N_ID'] . ')">xóa</a></td>
+                            </tr>';
+                    }
+                    ?>
+                </tbody>
             </table>
         </div>
         <div id="Topics" class="tabcontent">
@@ -57,8 +60,8 @@ $get_topics = mysqli_query($connection, "select * from topics");
                         <tr>
                             <td>' . $topic['_ID'] . '</td>
                             <td>' . $topic['TOPIC_NAME'] . '</td>
-                            <td width="50px"><a href="#">sửa</a></td>
-                            <td width="50px"><a href="#">xóa</a></td>
+                            <td width="50px"><a href="?page=edit_topic&id=' . $topic['_ID'] . '">sửa</a></td>
+                            <td width="50px"><a href="./controling/handle_delete.php?del_topic&id=' . $topic['_ID'] . '" onclick="Handle_OnDel(event, ' . $topic['_ID'] . ')">xóa</a></td>
                         </tr>
                     ';
                 }
@@ -107,5 +110,12 @@ $get_topics = mysqli_query($connection, "select * from topics");
         // Show the current tab, and add an "active" class to the button that opened the tab
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
+    }
+</script>
+
+<script>
+    const Handle_OnDel = (e, id) => {
+        if (confirm(`Xác nhận xóa dữ liệu ${id}`) == false)
+            e.preventDefault();
     }
 </script>
