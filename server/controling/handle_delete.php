@@ -38,4 +38,10 @@ if (isset($_GET['del_news'])) {
 
     mysqli_query($connection, $sql_delaccount);
     header("Location: ../?page=blog");
+} elseif (isset($_GET['unlock'])) {
+    // TRẢ LẠI TÀI KHOẢN ĐÃ XÓA -> VỚI HÌNH THỨC MỞ KHÓA
+    $sql_unlock = "update accounts set USER_LOCK = 0 where _ID = " . $_GET['id'] . "";
+
+    mysqli_query($connection, $sql_unlock);
+    header("Location: ../?page=blog");
 }

@@ -139,7 +139,7 @@ $get_accounts_locked = mysqli_query($connection, "select * from accounts where U
                                 <td >' . $accounts['USER_PASS'] . '</td>
                                 <td>' . $accounts['USER_LEVEL'] . '</td>
                                 <td>Đã bị khóa</td>
-                                <td width="120px" style="text-align: center;"><a href="?page=unlock&id=' . $accounts['_ID'] . '">Mở khóa</a></td>
+                                <td width="120px" style="text-align: center;"><a href="./controling/handle_delete.php?unlock&id=' . $accounts['_ID'] . '" onclick="Handle_Unlock(event, ' . $accounts['_ID'] . ')">Mở khóa</a></td>
                                 <td width="50px" style="text-align: center;"><a href="./controling/handle_delete.php?des_account&id=' . $accounts['_ID'] . '" onclick="Handle_OnDel(event, ' . $accounts['_ID'] . ')">xóa</a></td>
                             </tr>
                         ';
@@ -194,6 +194,12 @@ $get_accounts_locked = mysqli_query($connection, "select * from accounts where U
 <script>
     const Handle_OnDel = (e, id) => {
         if (confirm(`Xác nhận xóa dữ liệu ${id}`) == false)
+            e.preventDefault();
+    }
+
+
+    const Handle_Unlock = (e, id) => {
+        if (confirm(`Xác nhận mở khóa tài khoản ${id}`) == false)
             e.preventDefault();
     }
 </script>
