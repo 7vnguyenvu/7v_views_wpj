@@ -51,7 +51,7 @@ $get_topics = mysqli_query($connection, "select * from topics");
     </div>
 
 
-    <input type="hidden" id="user_id" name="user_id" value="<?php echo $user->_id; ?>" />
+    <input type="hidden" id="user_id" name="user_id" value="<?php echo $user['_ID'] ?>" />
 
     <br />
 

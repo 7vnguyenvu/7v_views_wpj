@@ -25,7 +25,7 @@ $get_topics = mysqli_query($connection, "select * from topics");
         <textarea required name="content" id="content"></textarea>
     </div>
 
-    <input type="hidden" name="user_id" value="<?php echo $user->_id; ?>" />
+    <input type="hidden" name="user_id" value="<?php echo $user['_ID']; ?>" />
 
     <br />
 
