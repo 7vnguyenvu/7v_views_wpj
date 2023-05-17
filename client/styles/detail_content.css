@@ -1,0 +1,6 @@
+@import url("../pages/styles/page_detail_style.css");
+
+.main .detail-content {
+    background-color: var(--bg-color);
+    flex: 1;
+}

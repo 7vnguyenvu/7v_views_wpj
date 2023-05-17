@@ -4,6 +4,7 @@
 @import url("./header.css");
 @import url("./sidebar.css");
 @import url("./content.css");
+@import url("./detail_content.css");
 
 body {
     background-color: var(--bg-color);

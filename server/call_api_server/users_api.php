@@ -1,6 +1,6 @@
 <?php
 
-include_once "../configs/dbconfig.php";
+include "../configs/dbconfig.php";
 $users = mysqli_query($connection, "select * from users");
 
 $data = [];

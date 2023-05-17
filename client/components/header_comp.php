@@ -19,7 +19,7 @@
                 <p class="action__blogs">Bài viết của tôi</p>
                 <i class="fa-solid fa-bell action__notify"></i>
                 <div id="action__user" class="action__user">
-                    <p>' . $user->full_name . '</p>
+                <p>' . $user->last_name . '</p>
                     <img src="' . $user_avt . '" alt="Hình của user">
                 </div>
             ';

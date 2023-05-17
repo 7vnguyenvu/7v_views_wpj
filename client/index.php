@@ -10,13 +10,8 @@ if ($account != null) {
             break;
         }
     }
-    // echo "<script>alert('Đăng nhập thành công bằng tài khoản $account->username')</script>";
 }
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -38,11 +33,17 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 <body>
 
     <div class="container">
-        <?php include "./components/header_comp.php" ?>
+        <?php include_once "./components/header_comp.php" ?>
 
         <div class="main">
-            <?php include "./components/sidebar_comp.php" ?>
-            <?php include "./components/content_comp.php" ?>
+            <?php
+            if (!isset($_GET['detail'])) {
+                include_once "./components/sidebar_comp.php";
+                include_once "./components/content_comp.php";
+            } else {
+                include_once "./components/detail_comp.php";
+            }
+            ?>
         </div>
     </div>
 </body>

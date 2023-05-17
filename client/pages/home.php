@@ -1,13 +1,61 @@
 <?php
-include_once "./configs/dbconfig.php";
-
-$str = "select news._ID as N_ID, news.*, topics.* from news, topics where news.TOPIC_ID = topics._ID order by N_ID desc";
-$get_news_and_topics = mysqli_query($connection, $str);
-$get_topics = mysqli_query($connection, "select * from topics");
+include "./call_api/news.php";
+include "./call_api/topics.php";
 ?>
 
 <div class="home">
     <div class="home__content">
+        <h1>Tin mới nhất</h1>
+        <hr />
+        <div class="home__content-hot">
+            <?php
+            $topic_tmp = 'Xã hội';
+            foreach ($topics_list as $topic) {
+                if ($topic['_id'] == $news_list[0]['topic_id']) {
+                    $topic_tmp = $topic['topic_name'];
+                    break;
+                }
+            }
+            ?>
+            <div class="hotitem">
+                <div class="text">
+                    <a href="?detail&page=news&id=<?php echo $news_list[0]['_id'] ?>" class="title"><?php echo $news_list[0]['title'] ?></a>
+                    <p class="sapo"><?php echo $news_list[0]['sapo'] ?></p>
+                    <p class="other"><?php echo $topic_tmp ?> | <?php echo $news_list[0]['created_at'] ?></p>
+                </div>
+                <a href="?detail&page=news&id=<?php echo $news_list[0]['_id'] ?>" class="image">
+                    <img src="<?php echo $news_list[0]['typical_image'] ?>" alt="">
+                </a>
+            </div>
+        </div>
+        <div class="home__content-items">
+
+            <?php
+            for ($i = 1; $i < count($news_list); $i++) {
+
+                $topic_tmp = 'Xã hội';
+                foreach ($topics_list as $topic) {
+                    if ($topic['_id'] == $news_list[$i]['topic_id']) {
+                        $topic_tmp = $topic['topic_name'];
+                        break;
+                    }
+                }
+
+                echo '
+                    <div class="item">
+                        <a href="?detail&page=news&id=' . $news_list[$i]['_id'] . ' " class="image">
+                            <img src="' . $news_list[$i]['typical_image'] . '" alt="">
+                        </a>
+                        <div class="text">
+                            <a href="?detail&page=news&id=' . $news_list[$i]['_id'] . ' " class="title">' . $news_list[$i]['title'] . '</a>
+                            <p class="other">' . $topic_tmp . ' | ' . $news_list[$i]['created_at'] . '</p>
+                        </div>
+                    </div>
+                ';
+            }
+            ?>
+
+        </div>
 
 
     </div>
@@ -17,10 +65,10 @@ $get_topics = mysqli_query($connection, "select * from topics");
 
         <div class="home__action-select">
             <?php
-            while ($topic = mysqli_fetch_array($get_topics, 1)) {
+            foreach ($topics_list as $topic) {
                 echo '
-                    <a href="?news&topic=' . $topic['_ID'] . '">
-                        ' . $topic['TOPIC_NAME'] . '
+                    <a href="?news&topic=' . $topic['_id'] . '">
+                        ' . $topic['topic_name'] . '
                     </a>
                 ';
             }

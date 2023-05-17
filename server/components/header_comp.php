@@ -13,11 +13,16 @@
     <div class="action">
         <?php
         if ($account != null) {
-            $user_avt = trim($user['AVATAR']) != "" ? $user['AVATAR'] : 'images/no-image-user.png';
+            $user_avt = "images/no-image-user.png";
+
+            if (isset($user['AVATAR'])) {
+                $user_avt = trim($user['AVATAR']) != "" ? $user['AVATAR'] : 'images/no-image-user.png';
+            }
 
             echo '<p class="action__blogs">Bài viết của tôi</p>
             <i class="fa-solid fa-bell action__notify"></i>
             <div id="action__user" class="action__user">
+                <p>' . $user['LAST_NAME'] . '</p>
                 <img src="' . $user_avt . '" alt="Hình của user">
             </div>';
         } else {
