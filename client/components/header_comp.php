@@ -16,12 +16,25 @@
             $user_avt = trim($user->avatar) != "" ? $user->avatar : 'http://localhost/DO_AN_WEB/server/images/no-image-user.png';
 
             echo '
-                <p class="action__blogs">Bài viết của tôi</p>
+                <a href="?page=blog&user=' . $user->_id . '" class="action__blogs">Bài viết của tôi</a>
                 <i class="fa-solid fa-bell action__notify"></i>
                 <div id="action__user" class="action__user">
-                <p>' . $user->last_name . '</p>
+                    <p>' . $user->last_name . '</p>
                     <img src="' . $user_avt . '" alt="Hình của user">
                 </div>
+                <div id="user_menu">
+                    <a href="?detail&page=profile&user=' . $user->nick_name . '">Thông tin cá nhân</a>
+                    <a href="?page=add_blog">Viết blog</a>
+                    <a href="">Đổi mật khẩu</a>
+                    <a href="./controling/signout.php" onclick="Handle_Signout(event)">Đăng xuất</a>
+                </div>
+                
+                <script>
+                    const Handle_Signout = (e) => {
+                        if (confirm("Xác nhận đăng xuất") == false)
+                            e.preventDefault();
+                    }
+                </script>
             ';
         } else {
             echo '<button id="bSignUp" style="--bcolor: #ffff00; --color: var(--dark-color); --hover: var(--second-color)" >Đăng ký</button>';
@@ -30,7 +43,26 @@
         ?>
     </div>
 
+
+    <script>
+        var isShowMenu = false;
+
+        document.getElementById('action__user').onclick = () => {
+            isShowMenu = !isShowMenu;
+            document.getElementById('user_menu').style.display = isShowMenu ? 'block' : 'none';
+
+            document.getElementById('user_menu').onmouseleave = () => {
+
+                setTimeout(() => {
+                    document.getElementById('user_menu').style.display = 'none';
+                    isShowMenu = !isShowMenu;
+                }, 300)
+            }
+        }
+    </script>
+
     <?php
+    include "./call_api/accounts.php";
     if ($account == null) {
         $form_signup =
             '<form method="POST" action="./controling/signup.php">' .
@@ -58,7 +90,7 @@
             '<label for="password">Mật khẩu</label>' .
             "</div>" .
             '<div class="col-75">' .
-            '<input required type="text" id="password" name="password" placeholder="Mật khẩu..." />' .
+            '<input required type="password" id="password" name="password" placeholder="Mật khẩu..." />' .
             "</div>" .
             "</div>" .
             '<div class="row">' .
@@ -66,7 +98,7 @@
             '<label for="re-password">Nhập lại mật khẩu</label>' .
             "</div>" .
             '<div class="col-75">' .
-            '<input required type="text" id="re-password" name="re-password" placeholder="Nhập lại mật khẩu..." />' .
+            '<input required type="password" id="re-password" name="re-password" placeholder="Nhập lại mật khẩu..." />' .
             "</div>" .
             "</div>" .
             "<br />" .
@@ -80,108 +112,140 @@
             '<form method="POST" action="./controling/signin.php">' .
             '<div class="row">' .
             '<p>Đăng nhập</p>' .
-            "</div>" .
+            '</div>' .
             '<div class="row">' .
             '<div class="col-25">' .
             '<label for="username">Tên đăng nhập</label>' .
-            "</div>" .
+            '</div>' .
             '<div class="col-75">' .
             '<input type="text" id="username" name="username" required placeholder="Tên đăng nhập..." />' .
-            "</div>" .
-            "</div>" .
+            '</div>' .
+            '</div>' .
             '<div class="row">' .
             '<div class="col-25">' .
             '<label for="password">Mật khẩu</label>' .
-            "</div>" .
+            '</div>' .
             '<div class="col-75">' .
-            '<input type="text" id="password" name="password" required placeholder="Mật khẩu..." />' .
-            "</div>" .
-            "</div>" .
-            "<br />" .
+            '<input type="password" id="password" name="password" required placeholder="Mật khẩu..." />' .
+            '</div>' .
+            '</div>' .
+            '<br />' .
             '<div class="row">' .
             '<input type="submit" value="Đăng nhập" style="--color: #096cdb; --hover: #1ca3fd" />' .
             '<input type="button" value="Trở lại" style="--color: #d70000; --hover: #ff0000" />' .
-            "</div>" .
-            "</form>";
+            '</div>' .
+            '</form>';
 
 
-        echo "<script>
-            var overlay = document.createElement('div');
-            overlay.className = 'overlay';
 
-            var fsu = document.createElement('div');
-            fsu.className = 'sign-in-up-form';
-            fsu.innerHTML = '$form_signup'
+        echo "
+            <script>
+                var overlay = document.createElement('div');
+                overlay.className = 'overlay';
 
-            
-            var fsi = document.createElement('div');
-            fsi.className = 'sign-in-up-form';
-            fsi.innerHTML = '$form_signin'
-            
-            document.getElementById('bSignUp').onclick = () => {
-                ShowForm('signup');
-            }
+                var fsu = document.createElement('div');
+                fsu.className = 'sign-in-up-form';
+                fsu.innerHTML = '$form_signup';
 
-            document.getElementById('bSignIn').onclick = () => {
-                ShowForm('signin');
-            }
+                
+                var fsi = document.createElement('div');
+                fsi.className = 'sign-in-up-form';
+                fsi.innerHTML = '$form_signin';
+                
+                var input_uname = null;
+                var input_pass = null;
+                var input_re_pass = null;
+                
+                document.getElementById('bSignUp').onclick = () => {
+                    ShowForm('signup');
+                    
+                    // input_uname = document.getElementById('username');
+                    input_pass = document.getElementById('password');
+                    input_re_pass = document.getElementById('re-password');
+                    
+                    // input_uname.onkeyup = CheckExistsUname;
+                    input_pass.onchange = ValidatePassword;
+                    input_re_pass.onkeyup = ValidatePassword;
+                };
 
-            const ShowForm = (type) => {
-                switch (type) {
-                    case 'signup':
-                        document.body.appendChild(overlay);
-                        document.body.appendChild(fsu);
-                        overlay.style.animation = \"fade-in-overlay ease 0.2s forwards\";
-                        fsu.style.animation = \"fade-in ease 0.3s forwards\";
+                document.getElementById('bSignIn').onclick = () => {
+                    ShowForm('signin');
+                };
 
-                        document.querySelector('input[type=\"button\"]').onclick = () => {
-                            HideForm('signup');
-                        }
+                const ShowForm = (type) => {
+                    switch (type) {
+                        case 'signup':
+                            document.body.appendChild(overlay);
+                            document.body.appendChild(fsu);
+                            overlay.style.animation = \"fade-in-overlay ease 0.2s forwards\";
+                            fsu.style.animation = \"fade-in ease 0.3s forwards\";
 
-                        document.querySelector(\".overlay\").onclick = () => {
-                            HideForm('signup');
-                        }
-                        break;
-                    case 'signin':
-                        document.body.appendChild(overlay);
-                        document.body.appendChild(fsi);
-                        overlay.style.animation = \"fade-in-overlay ease 0.2s forwards\";
-                        fsi.style.animation = \"fade-in ease 0.3s forwards\";
+                            document.querySelector('input[type=\"button\"]').onclick = () => {
+                                HideForm('signup');
+                            }
 
-                        document.querySelector('input[type=\"button\"]').onclick = () => {
-                            HideForm('signin');
-                        }
+                            document.querySelector(\".overlay\").onclick = () => {
+                                HideForm('signup');
+                            }
+                            break;
+                        case 'signin':
+                            document.body.appendChild(overlay);
+                            document.body.appendChild(fsi);
+                            overlay.style.animation = \"fade-in-overlay ease 0.2s forwards\";
+                            fsi.style.animation = \"fade-in ease 0.3s forwards\";
 
-                        document.querySelector(\".overlay\").onclick = () => {
-                            HideForm('signin');
-                        }
-                        break;
-                }
+                            document.querySelector('input[type=\"button\"]').onclick = () => {
+                                HideForm('signin');
+                            }
 
-            };
+                            document.querySelector(\".overlay\").onclick = () => {
+                                HideForm('signin');
+                            }
+                            break;
+                    }
 
-            const HideForm = (type) => {
-                switch (type) {
-                    case 'signup':
-                        overlay.style.animation = \"fade-out-overlay ease 0.2s forwards\";
-                        fsu.style.animation = \"fade-out ease 0.3s forwards\";
-                        document.body.removeChild(overlay);
-                        setTimeout(() => {
-                            document.body.removeChild(fsu);
-                        }, 300);
-                        break;
-                    case 'signin':
-                        overlay.style.animation = \"fade-out-overlay ease 0.2s forwards\";
-                        fsi.style.animation = \"fade-out ease 0.3s forwards\";
-                        document.body.removeChild(overlay);
-                        setTimeout(() => {
-                            document.body.removeChild(fsi);
-                        }, 300);
-                        break;
-                }
+                };
 
-            };
-        </script>";
+                const HideForm = (type) => {
+                    switch (type) {
+                        case 'signup':
+                            overlay.style.animation = \"fade-out-overlay ease 0.2s forwards\";
+                            fsu.style.animation = \"fade-out ease 0.3s forwards\";
+                            document.body.removeChild(overlay);
+                            setTimeout(() => {
+                                document.body.removeChild(fsu);
+                            }, 300);
+                            break;
+                        case 'signin':
+                            overlay.style.animation = \"fade-out-overlay ease 0.2s forwards\";
+                            fsi.style.animation = \"fade-out ease 0.3s forwards\";
+                            document.body.removeChild(overlay);
+                            setTimeout(() => {
+                                document.body.removeChild(fsi);
+                            }, 300);
+                            break;
+                    }
+
+                };
+
+                const ValidatePassword = () => {
+                    if (input_pass.value.trim() != input_re_pass.value.trim()) {
+                        input_re_pass.setCustomValidity('Mật khẩu không khớp');
+                    } else {
+                        input_re_pass.setCustomValidity('');
+                    }
+                }            
+
+            </script>
+        ";
+
+        // echo "
+        //     <script>
+        //         const CheckExistsUname = () => {
+        //             console.log(input_uname.value)
+        //         }
+        //     </script>
+        // ";
     }
     ?>
 
@@ -230,6 +294,7 @@
         margin-top: 20px;
     }
 
+    .sign-in-up-form input[type="password"],
     .sign-in-up-form input[type="text"],
     .sign-in-up-form select,
     .sign-in-up-form textarea {

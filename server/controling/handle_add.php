@@ -77,7 +77,6 @@ if (isset($_POST['add_news'])) {
         'updated_at' => (new DateTime())->format('Y-m-d h:i:s'),
     ];
 
-
     $sql_postblog = "insert into blogs values (
         $blogs_tmp->_id,
         $blogs_tmp->user_id,
@@ -88,10 +87,13 @@ if (isset($_POST['add_news'])) {
         '$blogs_tmp->updated_at'
         )";
 
-    echo $sql_postblog;
-
     mysqli_query($connection, $sql_postblog);
-    header("Location: ../?page=blog ");
+
+    if (isset($_POST['formclient'])) {
+        header("Location: http://localhost/DO_AN_WEB/client/?page=blog");
+    } else {
+        header("Location: ../?page=blog ");
+    }
 } elseif (isset($_POST['add_account'])) {
 
     $name_of_user = isset($_POST['name_of_user']) ? trim($_POST['name_of_user']) : null;
@@ -112,7 +114,7 @@ if (isset($_POST['add_news'])) {
 
             $sql_postaccount = "insert into accounts values ($next_account_id,'$uname','$urepass',$default_level, $default_lock)";
 
-            $sql_postuser = "insert into users values ($new_user_id, $next_account_id, '', '$name_of_user', '$name_of_user', '@$nickname_user', '', '', 'images/no-image-user.png', 'http://localhost/DO_AN_WEB/server/images/no-image-cover.png', 0, 0, '', '', '', '')";
+            $sql_postuser = "insert into users values ($new_user_id, $next_account_id, '', '$name_of_user', '$name_of_user', '@$nickname_user', '', '', 'http://localhost/DO_AN_WEB/server/images/no-image-user.png', 'http://localhost/DO_AN_WEB/server/images/no-image-cover.png', 0, 0, '', '', '', '')";
 
             mysqli_query($connection, $sql_postaccount);
             mysqli_query($connection, $sql_postuser);

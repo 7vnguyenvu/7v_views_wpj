@@ -1,8 +1,8 @@
 <?php
-include_once "./configs/dbconfig.php";
-$get_topics = mysqli_query($connection, "select * from topics");
+$handle_add = "http://localhost/DO_AN_WEB/server/controling/handle_add.php";
+
 ?>
-<form class="add-form" action="./controling/handle_add.php" method="post" enctype="multipart/form-data">
+<form class="add-form" action="<?php echo $handle_add ?>" method="post" enctype="multipart/form-data">
     <div class="row_title">
         <p>#> Bài viết mới</p>
     </div>
@@ -26,6 +26,7 @@ $get_topics = mysqli_query($connection, "select * from topics");
     </div>
 
     <input type="hidden" name="user_id" value="<?php echo $user->_id; ?>" />
+    <input type="hidden" name="formclient" />
 
     <br />
 

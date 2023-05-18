@@ -8,11 +8,16 @@
 
 body {
     background-color: var(--bg-color);
-    color: #000;
+    color: var(--dark-color);
     display: flex;
     justify-content: center;
     font-family: "Kanit", sans-serif;
     overflow: overlay;
+}
+
+a {
+    text-decoration: none;
+    color: var(--dark-color);
 }
 
 .container {

@@ -60,7 +60,7 @@
             '<label for="password">Mật khẩu</label>' .
             "</div>" .
             '<div class="col-75">' .
-            '<input required type="text" id="password" name="password" placeholder="Mật khẩu..." />' .
+            '<input required type="password" id="password" name="password" placeholder="Mật khẩu..." />' .
             "</div>" .
             "</div>" .
             '<div class="row">' .
@@ -68,7 +68,7 @@
             '<label for="re-password">Nhập lại mật khẩu</label>' .
             "</div>" .
             '<div class="col-75">' .
-            '<input required type="text" id="re-password" name="re-password" placeholder="Nhập lại mật khẩu..." />' .
+            '<input required type="password" id="re-password" name="re-password" placeholder="Nhập lại mật khẩu..." />' .
             "</div>" .
             "</div>" .
             "<br />" .
@@ -96,7 +96,7 @@
             '<label for="password">Mật khẩu</label>' .
             "</div>" .
             '<div class="col-75">' .
-            '<input type="text" id="password" name="password" required placeholder="Mật khẩu..." />' .
+            '<input type="password" id="password" name="password" required placeholder="Mật khẩu..." />' .
             "</div>" .
             "</div>" .
             "<br />" .
@@ -122,6 +122,11 @@
             
             document.getElementById('bSignUp').onclick = () => {
                 ShowForm('signup');
+                input_pass = document.getElementById('password');
+                input_re_pass = document.getElementById('re-password');
+                
+                input_pass.onchange = validatePassword;
+                input_re_pass.onkeyup = validatePassword;
             }
 
             document.getElementById('bSignIn').onclick = () => {
@@ -183,6 +188,16 @@
                 }
 
             };
+
+            
+
+            const validatePassword = () => {
+                if (input_pass.value.trim() != input_re_pass.value.trim()) {
+                    input_re_pass.setCustomValidity('Mật khẩu không khớp');
+                } else {
+                    input_re_pass.setCustomValidity('');
+                }
+            };
         </script>";
     }
     ?>
@@ -232,6 +247,7 @@
         margin-top: 20px;
     }
 
+    .sign-in-up-form input[type="password"],
     .sign-in-up-form input[type="text"],
     .sign-in-up-form select,
     .sign-in-up-form textarea {

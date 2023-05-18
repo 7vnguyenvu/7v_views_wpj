@@ -1,17 +1,46 @@
 <?php
 include "./call_api/news.php";
 include "./call_api/topics.php";
+
+$topic_filler = isset($_GET['topic']) ? $_GET['topic'] : null;
+
+$new_list_News = $news_list;
+$notify = null;
+if ($topic_filler) {
+    $new_list_News = [];
+    foreach ($news_list as $news) {
+        if ($news['topic_id'] == $topic_filler) {
+            array_push($new_list_News, $news);
+        }
+    }
+    if (count($new_list_News) == 0) {
+        $new_list_News = $news_list;
+        $notify = "Không có tin nào về chủ đề này!";
+    }
+}
+
+
 ?>
 
 <div class="home">
     <div class="home__content">
+        <?php
+        if ($notify) {
+            echo "
+                <script>
+                    alert('$notify');
+                    location.href = './';
+                </script>
+            ";
+        }
+        ?>
+
         <h1>Tin mới nhất</h1>
-        <hr />
         <div class="home__content-hot">
             <?php
             $topic_tmp = 'Xã hội';
             foreach ($topics_list as $topic) {
-                if ($topic['_id'] == $news_list[0]['topic_id']) {
+                if ($topic['_id'] == $new_list_News[0]['topic_id']) {
                     $topic_tmp = $topic['topic_name'];
                     break;
                 }
@@ -19,23 +48,23 @@ include "./call_api/topics.php";
             ?>
             <div class="hotitem">
                 <div class="text">
-                    <a href="?detail&page=news&id=<?php echo $news_list[0]['_id'] ?>" class="title"><?php echo $news_list[0]['title'] ?></a>
-                    <p class="sapo"><?php echo $news_list[0]['sapo'] ?></p>
-                    <p class="other"><?php echo $topic_tmp ?> | <?php echo $news_list[0]['created_at'] ?></p>
+                    <a href="?detail&page=news&id=<?php echo $new_list_News[0]['_id'] ?>" class="title"><?php echo $new_list_News[0]['title'] ?></a>
+                    <p class="sapo"><?php echo $new_list_News[0]['sapo'] ?></p>
+                    <p class="other"><?php echo $topic_tmp ?> | <?php echo $new_list_News[0]['created_at'] ?></p>
                 </div>
-                <a href="?detail&page=news&id=<?php echo $news_list[0]['_id'] ?>" class="image">
-                    <img src="<?php echo $news_list[0]['typical_image'] ?>" alt="">
+                <a href="?detail&page=news&id=<?php echo $new_list_News[0]['_id'] ?>" class="image">
+                    <img src="<?php echo $new_list_News[0]['typical_image'] ?>" alt="">
                 </a>
             </div>
         </div>
         <div class="home__content-items">
 
             <?php
-            for ($i = 1; $i < count($news_list); $i++) {
+            for ($i = 1; $i < count($new_list_News); $i++) {
 
                 $topic_tmp = 'Xã hội';
                 foreach ($topics_list as $topic) {
-                    if ($topic['_id'] == $news_list[$i]['topic_id']) {
+                    if ($topic['_id'] == $new_list_News[$i]['topic_id']) {
                         $topic_tmp = $topic['topic_name'];
                         break;
                     }
@@ -43,12 +72,12 @@ include "./call_api/topics.php";
 
                 echo '
                     <div class="item">
-                        <a href="?detail&page=news&id=' . $news_list[$i]['_id'] . ' " class="image">
-                            <img src="' . $news_list[$i]['typical_image'] . '" alt="">
+                        <a href="?detail&page=news&id=' . $new_list_News[$i]['_id'] . ' " class="image">
+                            <img src="' . $new_list_News[$i]['typical_image'] . '" alt="">
                         </a>
                         <div class="text">
-                            <a href="?detail&page=news&id=' . $news_list[$i]['_id'] . ' " class="title">' . $news_list[$i]['title'] . '</a>
-                            <p class="other">' . $topic_tmp . ' | ' . $news_list[$i]['created_at'] . '</p>
+                            <a href="?detail&page=news&id=' . $new_list_News[$i]['_id'] . ' " class="title">' . $new_list_News[$i]['title'] . '</a>
+                            <p class="other">' . $topic_tmp . ' | ' . $new_list_News[$i]['created_at'] . '</p>
                         </div>
                     </div>
                 ';
@@ -77,32 +106,6 @@ include "./call_api/topics.php";
     </div>
 
 </div>
-
-<script>
-    // Get the element with id="defaultOpen" and click on it
-    document.getElementById("defaultOpen").click();
-
-    function openCity(evt, cityName) {
-        // Declare all variables
-        var i, tabcontent, tablinks;
-
-        // Get all elements with class="tabcontent" and hide them
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-
-        // Get all elements with class="tablinks" and remove the class "active"
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-
-        // Show the current tab, and add an "active" class to the button that opened the tab
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
-</script>
 
 <script>
     const Handle_OnDel = (e, id) => {

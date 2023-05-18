@@ -30,3 +30,5 @@ if ($uname && $upass) {
         header("Location: ../");
     }
 }
+
+header("Location: ../");

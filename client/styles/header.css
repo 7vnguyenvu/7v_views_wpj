@@ -75,6 +75,7 @@ header .action {
     align-items: center;
     justify-content: right;
     padding: 0 24px;
+    position: relative;
 }
 
 .action__user {
@@ -110,4 +111,45 @@ header .action {
 .action__blogs {
     font-weight: 500;
     cursor: pointer;
+}
+
+/* ### ACTION - MENU ########################## */
+#user_menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    background-color: var(--bg-color);
+    box-shadow: 0 0 8px #b5b5b5;
+    min-width: 220px;
+    border-radius: 4px;
+}
+
+#user_menu::before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-bottom: 8px solid #ffffff;
+    border-left: 8px solid #00000000;
+    border-right: 8px solid #00000000;
+    position: absolute;
+    right: 28px;
+    top: -8px;
+}
+
+#user_menu a {
+    display: block;
+    text-decoration: none;
+    color: var(--dark-color);
+    padding: 4px 12px;
+    font-weight: 100;
+    margin: 4px;
+    border-radius: 4px;
+    transition: all ease-in-out 0.2s;
+}
+
+#user_menu a:hover {
+    cursor: pointer;
+    background-color: #ececec;
+    color: var(--second-color);
 }

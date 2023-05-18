@@ -3,7 +3,7 @@ session_start();
 include_once "../configs/dbconfig.php";
 
 $uname = isset($_POST['username']) ? $_POST['username'] : null;
-$upass = isset($_POST['password']) ? $_POST['password'] : null;
+$upass = isset($_POST['password']) ? md5($_POST['password']) : null;
 
 if ($uname && $upass) {
     try {
@@ -14,19 +14,33 @@ if ($uname && $upass) {
     }
 
     if ($getquery->num_rows == 0) {
-        header("Location: ../");
+        echo '
+            <script>
+                alert("Tài khoản không tồn tại");
+                location.href = "../";
+            </script>
+        ';
     } else {
         $row = mysqli_fetch_array($getquery);
 
-        $user = (object) [
-            '_id' => $row['_ID'],
-            'username' => $row['USER_NAME'],
-            'password' => $row['USER_PASS'],
-            'level' => $row['USER_LEVEL'],
-            'lock' => $row['USER_LOCK']
-        ];
+        if (password_verify($upass, password_hash($row['USER_PASS'], PASSWORD_DEFAULT))) {
+            $user_logged = (object) [
+                '_id' => $row['_ID'],
+                'username' => $row['USER_NAME'],
+                'password' => $row['USER_PASS'],
+                'level' => $row['USER_LEVEL'],
+                'lock' => $row['USER_LOCK']
+            ];
 
-        $_SESSION['user_logged'] = $user;
-        header("Location: ../");
+            $_SESSION['user_logged'] = $user_logged;
+            header("Location: ../");
+        } else {
+            echo '
+                <script>
+                    alert("Tài khoản không hợp lệ");
+                    // location.href = "../";
+                </script>
+            ';
+        }
     }
 }
