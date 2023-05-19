@@ -16,10 +16,14 @@ if (isset($_GET['del_news'])) {
     $sql_delblog = 'delete from blogs where _ID = ' . $_GET['id'] . '';
     unlink('../' . $get_typical_img);
     mysqli_query($connection, $sql_delblog);
-    if (isset($_POST['formclient'])) {
-        header("Location: http://localhost/DO_AN_WEB/client/?page=blog");
+    if (isset($_GET['formclient'])) {
+        header("Location: http://localhost/DO_AN_WEB/client/?page=blog&user=" . $_GET['user_id'] . "");
     } else {
-        header("Location: ../?page=blog ");
+        echo '
+            <script>
+                history.back()
+            </script>
+        ';
     }
 } elseif (isset($_GET['del_account'])) {
     // XÓA TÀI KHOẢN -> VỚI HÌNH THỨC KHÓA

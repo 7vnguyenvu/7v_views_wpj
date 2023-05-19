@@ -21,8 +21,8 @@ if (isset($_POST['add_news'])) {
         'typical_image' => trim($path_of_image_container . $news_image__path),
         'note_image' => trim($_POST['note_image']),
         'user_id' => trim($_POST['user_id']),
-        'created_at' => (new DateTime())->format('Y-m-d h:i:s'),
-        'updated_at' => (new DateTime())->format('Y-m-d h:i:s'),
+        'created_at' => (new DateTime())->format('Y-m-d H:i:s'),
+        'updated_at' => (new DateTime())->format('Y-m-d H:i:s'),
     ];
 
     $sql_postnews = "insert into news values (
@@ -63,8 +63,9 @@ if (isset($_POST['add_news'])) {
     if (isset($_FILES['typical_image']['name']) && $_FILES['typical_image']['name'] != "") {
         $blog_image__path = $blog_image__path . uniqid() . "__" . basename($_FILES['typical_image']['name']);
         move_uploaded_file($_FILES['typical_image']['tmp_name'], "../" . $blog_image__path);
+        $blog_image__path = $path_of_image_container . $blog_image__path;
     } else {
-        $blog_image__path = "http://localhost/DO_AN_WEB/server/images/no-image.png";
+        $blog_image__path = "";
     }
 
     $blogs_tmp = (object) [
@@ -72,9 +73,9 @@ if (isset($_POST['add_news'])) {
         'user_id' => trim($_POST['user_id']),
         'title' => trim($_POST['title']),
         'content' => trim($_POST['content']),
-        'typical_image' => trim($path_of_image_container . $blog_image__path),
-        'created_at' => (new DateTime())->format('Y-m-d h:i:s'),
-        'updated_at' => (new DateTime())->format('Y-m-d h:i:s'),
+        'typical_image' => trim($blog_image__path),
+        'created_at' => (new DateTime())->format('Y-m-d H:i:s'),
+        'updated_at' => (new DateTime())->format('Y-m-d H:i:s'),
     ];
 
     $sql_postblog = "insert into blogs values (
@@ -127,8 +128,6 @@ if (isset($_POST['add_news'])) {
 
     header("Location: ../?page=blog ");
 }
-
-
 
 function remove_vncode_and_spaces($str)
 {

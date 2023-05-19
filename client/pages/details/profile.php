@@ -11,8 +11,7 @@ foreach ($users_list as $obj) {
 ?>
 
 <div class="profile-container">
-    <a href="" target="_blank"></a>
-
+    <a onclick="history.back()" class="detail__back">&lt;# Trở lại</a>
     <div class="profile__header">
         <div class="cover-img" style="background: url('<?php echo $user_profile['cover_img'] ?>') no-repeat center / 100% 100%;">
             <div class="custom-link">

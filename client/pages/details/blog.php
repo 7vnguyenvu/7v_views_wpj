@@ -1,55 +1,43 @@
 <?php
-include "./call_api/blogs.php";
-include "./call_api/users.php";
-include "./call_api/likes.php";
-include "./call_api/comments.php";
-
 $handle_like = "http://localhost/DO_AN_WEB/server/controling/handle_like.php";
 
-$curr_bolg = null;
+$curr_blog = null;
 foreach ($blogs_list as $blogs) {
-    $curr_bolg = $blogs['_id'] == $_GET['id'] ? $blogs : null;
-    if ($curr_bolg != null) {
+    $curr_blog = $blogs['_id'] == $_GET['id'] ? $blogs : null;
+    if ($curr_blog != null) {
         break;
     }
 }
 
+$amount_like = json_decode(file_get_contents("http://localhost/DO_AN_WEB/server/call_api_server/count.php?like&id=" . $curr_blog['_id'] . ""));
+$amount_cmt = json_decode(file_get_contents("http://localhost/DO_AN_WEB/server/call_api_server/count.php?cmt&id=" . $curr_blog['_id'] . ""));
+
 $user_of_blog = null;
 foreach ($users_list as $utmp) {
-    if ($curr_bolg['user_id'] == $utmp['_id']) {
+    if ($curr_blog['user_id'] == $utmp['_id']) {
         $user_of_blog = $utmp;
         break;
     }
 }
 
-$amount_like = 0;
-foreach ($likes_list as $like) {
-    if ($like['blog_id'] == $curr_bolg['_id']) {
-        $amount_like++;
-    }
-}
-$like_active = false;
-foreach ($likes_list as $like) {
-    if ($like['blog_id'] == $curr_bolg['_id'] && $like['user_id'] == $user->_id) {
-        $like_active = true;
-        break;
-    }
-}
-
-$amount_cmt = 0;
-foreach ($comments_list as $comment) {
-    if ($comment['blog_id'] == $curr_bolg['_id']) {
-        $amount_cmt++;
+if ($account != null) {
+    $like_active = false;
+    foreach ($likes_list as $like) {
+        if ($like['blog_id'] == $curr_blog['_id'] && $like['user_id'] == $user->_id) {
+            $like_active = true;
+            break;
+        }
     }
 }
 ?>
 
 <div class="detail__container">
-    <a href="./?page=blog" class="detail__back">&lt;# Trở lại</a>
+    <a onclick="history.back()" class="detail__back" style="--mt: 12px;">&lt;# Trở lại</a>
+    <a href="./?page=blog" class="detail__back" style="--mt: 48px;">&lt;# Về Blogs</a>
     <div class="detail__content blog">
         <div class="topic-timecreated">
             <h4 class="topic">Thông tin bài viết</h4>
-            <?php echo $curr_bolg['user_id'] == $user->_id ? '<a href="?page=edit_blog&id=' . $curr_bolg['_id'] . '">Chỉnh sửa <i class="fa-solid fa-pen-to-square"></i></a>' : '' ?>
+            <?php echo $account != null && $curr_blog['user_id'] == $user->_id ? '<a href="?page=edit_blog&id=' . $curr_blog['_id'] . '&user=' . $user->_id  . '">Chỉnh sửa <i class="fa-solid fa-pen-to-square"></i></a>' : '' ?>
         </div>
         <div class="header">
             <div class="header__user">
@@ -58,45 +46,59 @@ foreach ($comments_list as $comment) {
                 </div>
                 <div class="user__about">
                     <h3><?php echo $user_of_blog['full_name'] ?></h3>
-                    <p><?php echo $curr_bolg['created_at'] ?></p>
+                    <p>● <?php echo Get_Time_Passed($curr_blog['created_at']) ?></p>
                 </div>
             </div>
 
-            <?php
-            if ($account != null) {
-
-                $icon = $like_active ? "fa-solid fa-heart active" : "fa-regular fa-heart";
-
-                echo '
-                <div class="header__action">
-                    <div class="like">
-                        <form action="' . $handle_like . '" method="post">
-                            <input type="hidden" name="blog_id" value="' . $curr_bolg['_id'] . '">
-                            <input type="hidden" name="user_id" value="' . $user->_id . '">
+            <div class="header__action">
+                <div class="like">
+                    <?php
+                    if ($account != null) {
+                        $icon = $like_active ? "fa-solid fa-heart active" : "fa-regular fa-heart";
+                        echo '
+                            <form action="' . $handle_like . '" method="post">
+                                <input type="hidden" name="blog_id" value="' . $curr_blog['_id'] . '">
+                                <input type="hidden" name="user_id" value="' . $user->_id . '">
+                                <button type="submit">
+                                    <i class="' . $icon . '"></i>
+                                </button>
+                            </form>
+                        ';
+                    } else {
+                        echo '
                             <button type="submit">
-                                <i class="' . $icon . '"></i>
+                                <i class="fa-regular fa-heart"></i>
                             </button>
-                        </form>
-                        <p>' . $amount_like . '</p>
-                    </div>
-                    <div class="comment">
-                        <i class="fa-regular fa-comment-dots"></i>
-                        <p>' . $amount_cmt . '</p>
-                    </div>
+                        ';
+                    }
+                    ?>
+                    <p><?php echo $amount_like ?></p>
+                </div>
+                <div class="comment">
+                    <i class="fa-regular fa-comment-dots"></i>
+                    <p><?php echo $amount_cmt ?></p>
+                </div>
+            </div>
+        </div>
+
+        <?php
+        if ($curr_blog['typical_image']  != '') {
+            echo '
+                <div class="image">
+                    <img src="' . $curr_blog['typical_image'] . '" alt="">
                 </div>
             ';
-            }
-            ?>
+        } ?>
 
-        </div>
-
-        <div class="image">
-            <img src="<?php echo $curr_bolg['typical_image'] ?>" alt="">
-        </div>
-        <div class="title">
-            <h1><?php echo $curr_bolg['title'] ?></h1>
-        </div>
-        <div class="main-content"><?php echo $curr_bolg['content'] ?></div>
+        <?php
+        if ($curr_blog['title']  != '') {
+            echo '
+                <div class="title">
+                    <h1>' . $curr_blog['title'] . '</h1>
+                </div>
+            ';
+        } ?>
+        <div class="main-content"><?php echo $curr_blog['content'] ?></div>
     </div>
     <h1 class="title_bulkhead">Bài viết khác</h1>
     <hr />
@@ -105,10 +107,10 @@ foreach ($comments_list as $comment) {
         $count_item = 0;
 
         foreach ($blogs_list as $blogs) {
-            if ($blogs['_id'] == $curr_bolg['_id']) {
+            if ($blogs['_id'] == $curr_blog['_id']) {
                 continue;
             } else {
-                if ($count_item < 4) {
+                if ($count_item < 12) {
 
                     $user_of_blog = null;
                     foreach ($users_list as $utmp) {
@@ -118,14 +120,17 @@ foreach ($comments_list as $comment) {
                         }
                     }
 
+                    $typical_image_tmp = $blogs['typical_image'] != '' ? $blogs['typical_image'] : $server_path . 'images/no-image.png';
+                    $title_tmp = $blogs['title'] != '' ? $blogs['title'] : 'Bài viết không có tiêu đề!';
+
                     echo '
                     <div class="item">
                         <a href="?detail&page=blog&id=' . $blogs['_id'] . ' " class="image">
-                            <img src="' . $blogs['typical_image'] . '" alt="">
+                            <img src="' . $typical_image_tmp . '" alt="">
                         </a>
                         <div class="text">
-                            <a href="?detail&page=blog&id=' . $blogs['_id'] . ' " class="title">' . $blogs['title'] . '</a>
-                            <p class="other">| ' . $blogs['created_at'] . '</p>
+                            <a href="?detail&page=blog&id=' . $blogs['_id'] . ' " class="title">' . $title_tmp . '</a>
+                            <p class="other">' . $user_of_blog['nick_name'] . ' ● ' . Get_Time_Passed($blogs['created_at']) . '</p>
                         </div>
                     </div>
                 ';

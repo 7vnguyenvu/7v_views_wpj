@@ -2,45 +2,41 @@
 include "./call_api/accounts.php";
 
 if ($account != null) {
-    // $user_avt = trim($user->avatar) != "" ? $user->avatar : "$server_path/images/no-image-user.png";
     echo '
-                <a href="?page=blog&user=' . $user->_id . '" class="action__blogs">Bài viết của tôi</a>
-                <i class="fa-solid fa-bell action__notify"></i>
-                <div id="action__user" class="action__user">
-                    <p>' . $user->last_name . '</p>
-                    <div class="image"><img src="' . $user->avatar . '" alt="Hình của user"></div>
-                </div>
-                <div id="user_menu">
-                    <a href="?detail&page=profile&user=' . $user->nick_name . '">Thông tin cá nhân</a>
-                    <a href="?page=add_blog">Viết blog</a>
-                    <a href="?page=change_password">Đổi mật khẩu</a>
-                    <a href="' . $server_path . 'controling/signout.php?formclient" onclick="Handle_Signout(event)">Đăng xuất</a>
-                </div>
-                
-                <script>
-                    const Handle_Signout = (e) => {
-                        if (confirm("Xác nhận đăng xuất") == false)
-                            e.preventDefault();
+            <a href="?page=blog&user=' . $user->_id . '" class="action__blogs">Bài viết của tôi</a>
+            <i class="fa-solid fa-bell action__notify"></i>
+            <div id="action__user" class="action__user">
+                <p>' . $user->last_name . '</p>
+                <div class="image"><img src="' . $user->avatar . '" alt="Hình của user"></div>
+            </div>
+            <div id="user_menu">
+                <a href="?detail&page=profile&user=' . $user->nick_name . '">Thông tin cá nhân</a>
+                <a href="?page=add_blog">Viết blog</a>
+                <a href="?page=change_password">Đổi mật khẩu</a>
+                <a href="' . $server_path . 'controling/signout.php?formclient" onclick="Handle_Signout(event)">Đăng xuất</a>
+            </div>
+            
+            <script>
+                const Handle_Signout = (e) => {
+                    if (confirm("Xác nhận đăng xuất") == false)
+                        e.preventDefault();
+                }
+            </script>            
+            <script>
+                var isShowMenu = false;
+
+                document.getElementById("action__user").onclick = () => {
+                    isShowMenu = !isShowMenu;
+                    document.getElementById("user_menu").style.display = isShowMenu ? "block" : "none";
+                    document.getElementById("user_menu").onmouseleave = () => {
+                        setTimeout(() => {
+                            document.getElementById("user_menu").style.display = "none";
+                            isShowMenu = !isShowMenu;
+                        }, 300)
                     }
-                </script>
-                
-                <script>
-                    var isShowMenu = false;
-
-                    document.getElementById("action__user").onclick = () => {
-                        isShowMenu = !isShowMenu;
-                        document.getElementById("user_menu").style.display = isShowMenu ? "block" : "none";
-
-                        document.getElementById("user_menu").onmouseleave = () => {
-
-                            setTimeout(() => {
-                                document.getElementById("user_menu").style.display = "none";
-                                isShowMenu = !isShowMenu;
-                            }, 300)
-                        }
-                    }
-                </script>
-            ';
+                }
+            </script>
+        ';
 } else {
     echo '<button id="bSignUp" style="--bcolor: #ffff00; --color: var(--dark-color); --hover: var(--second-color)" >Đăng ký</button>';
     echo '<button id="bSignIn" style="--bcolor: var(--primary-color); --color: var(--light-color); --hover: #e00552" >Đăng nhập</button>';

@@ -1,10 +1,20 @@
 <?php
 session_start();
+date_default_timezone_set('Asia/Ho_Chi_Minh');
+
 include_once "./configs/path_server.php";
 include_once "./call_api/users.php";
+include_once "./call_api/follows.php";
+
 include_once "./call_api/news.php";
 include_once "./call_api/topics.php";
+
 include_once "./call_api/blogs.php";
+include_once "./call_api/likes.php";
+include_once "./call_api/comments.php";
+
+include_once "./services/time_passed.php";
+
 $account = isset($_SESSION['user_logged']) ? $_SESSION['user_logged'] : null;
 $user = null;
 if ($account != null) {

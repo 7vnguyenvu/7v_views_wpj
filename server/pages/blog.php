@@ -62,10 +62,10 @@ $get_accounts_locked = mysqli_query($connection, "select * from accounts where U
                     <tr>
                         <th>#</th>
                         <th>Tài khoản</th>
+                        <th>Họ lót</th>
+                        <th>Tên</th>
                         <th>Tên người dùng</th>
-                        <th>Trang cá nhân</th>
-                        <th>Lượt theo dõi</th>
-                        <th>Người theo dõi</th>
+                        <th style="text-align: center;">Trang cá nhân</th>
                 </thead>
                 <tbody>
                     <?php
@@ -74,10 +74,10 @@ $get_accounts_locked = mysqli_query($connection, "select * from accounts where U
                             <tr>
                                 <td>' . $user['_ID'] . '</td>
                                 <td width="150px">' . $user['USER_NAME'] . '</td>
+                                <td>' . $user['FIRST_NAME'] . '</td>
+                                <td>' . $user['LAST_NAME'] . '</td>
                                 <td width="300px">' . $user['FULL_NAME'] . '</td>
-                                <td><a href="?' . $user['NICK_NAME'] . '">' . $user['NICK_NAME'] . '</a></td>
-                                <td>' . $user['FOLLOWING'] . '</td>
-                                <td>' . $user['FOLLOWER'] . '</td>
+                                <td  width="150px"><a href="http://localhost/DO_AN_WEB/client/?detail&page=profile&user=' . $user['NICK_NAME'] . '" target="_blank">' . $user['NICK_NAME'] . '</a></td>
                             </tr>
                         ';
                     }

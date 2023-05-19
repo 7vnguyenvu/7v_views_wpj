@@ -44,7 +44,7 @@ if ($topic_filler) {
                 <div class="text">
                     <a href="?detail&page=news&id=<?php echo $new_list_News[0]['_id'] ?>" class="title"><?php echo $new_list_News[0]['title'] ?></a>
                     <p class="sapo"><?php echo $new_list_News[0]['sapo'] ?></p>
-                    <p class="other"><?php echo $topic_tmp ?> | <?php echo $new_list_News[0]['created_at'] ?></p>
+                    <p class="other"><?php echo $topic_tmp ?> ● <?php echo Get_Time_Passed($new_list_News[0]['created_at']) ?></p>
                 </div>
                 <a href="?detail&page=news&id=<?php echo $new_list_News[0]['_id'] ?>" class="image">
                     <img src="<?php echo $new_list_News[0]['typical_image'] ?>" alt="">
@@ -68,7 +68,7 @@ if ($topic_filler) {
                         </a>
                         <div class="text">
                             <a href="?detail&page=news&id=' . $new_list_News[$i]['_id'] . ' " class="title">' . $new_list_News[$i]['title'] . '</a>
-                            <p class="other">' . $topic_tmp . ' | ' . $new_list_News[$i]['created_at'] . '</p>
+                            <p class="other">' . $topic_tmp . ' ● ' . Get_Time_Passed($new_list_News[$i]['created_at']) . '</p>
                         </div>
                     </div>
                 ';

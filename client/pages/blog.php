@@ -1,5 +1,4 @@
 <?php
-
 $user_filler = isset($_GET['user']) ? $_GET['user'] : null;
 
 $new_list_blogs = $blogs_list;
@@ -16,7 +15,6 @@ if ($user_filler) {
         $notify = "Không có bài viết nào từ bạn!";
     }
 }
-
 ?>
 
 <div class="home">
@@ -42,6 +40,7 @@ if ($user_filler) {
                 }
             }
             ?>
+
             <div class="hotitem">
                 <div class="text">
                     <div class="user">
@@ -53,11 +52,13 @@ if ($user_filler) {
                             <p><?php echo $user_of_blog_new['nick_name'] ?></p>
                         </a>
                     </div>
-                    <a href="?detail&page=blog&id=<?php echo $new_list_blogs[0]['_id'] ?>" class="title"><?php echo $new_list_blogs[0]['title'] ?></a>
-                    <p class="other">| <?php echo $new_list_blogs[0]['created_at'] ?></p>
+                    <a href="?detail&page=blog&id=<?php echo $new_list_blogs[0]['_id'] ?>" class="title">
+                        <?php echo trim($new_list_blogs[0]['title']) != '' ? $new_list_blogs[0]['title'] : 'Bài viết không có tiêu đề! <br />👉🏻 Vào xem ngay!' ?>
+                    </a>
+                    <p class="other">● <?php echo Get_Time_Passed($new_list_blogs[0]['created_at']) ?></p>
                 </div>
                 <a href="?detail&page=blog&id=<?php echo $new_list_blogs[0]['_id'] ?>" class="image">
-                    <img src="<?php echo $new_list_blogs[0]['typical_image'] ?>" alt="">
+                    <img src="<?php echo $new_list_blogs[0]['typical_image'] != '' ? $new_list_blogs[0]['typical_image'] : $server_path . 'images/no-image.png' ?>" alt="">
                 </a>
             </div>
         </div>
@@ -75,6 +76,9 @@ if ($user_filler) {
                     }
                 }
 
+                $typical_image_tmp = $new_list_blogs[$i]['typical_image'] != '' ? $new_list_blogs[$i]['typical_image'] : $server_path . 'images/no-image.png';
+                $title_tmp = $new_list_blogs[$i]['title'] != '' ? $new_list_blogs[$i]['title'] : 'Bài viết không có tiêu đề! <br />👉🏻 Vào xem thử!';
+
                 echo '
                     <div class="blog_item">
                         <div class="text">
@@ -86,11 +90,11 @@ if ($user_filler) {
                                     <h5>' . $user_of_blog_new['full_name'] . '</h5>
                                 </a>
                             </div>
-                            <a href="?detail&page=blog&id=' . $new_list_blogs[$i]['_id'] . '" class="title">' . $new_list_blogs[$i]['title'] . '</a>
-                            <p class="other">| ' . $new_list_blogs[$i]['created_at'] . '</p>
+                            <a href="?detail&page=blog&id=' . $new_list_blogs[$i]['_id'] . '" class="title">' . $title_tmp . '</a>
+                            <p class="other">● ' . Get_Time_Passed($new_list_blogs[$i]['created_at']) . '</p>
                         </div>
                         <a href="?detail&page=blog&id=' . $new_list_blogs[$i]['_id'] . '" class="image">
-                            <img src="' . $new_list_blogs[$i]['typical_image'] . '" alt="">
+                            <img src="' . $typical_image_tmp . '" alt="">
                         </a>
                     </div>
                 ';
@@ -121,19 +125,23 @@ if ($user_filler) {
         <h2>Người dùng mới</h2>
 
         <div class="home__action-select">
-
-
-
             <?php
-            foreach ($users_list as $utmp) {
-                echo '
-                <a href="?detail&page=profile&user=' . $utmp['nick_name'] . '" class="user">
-                    <div class="user__image">
-                        <img src="' . $utmp['avatar'] . '" alt="avt">
-                    </div>
-                    <p class="user__about">' . $utmp['full_name'] . '</p>
-                </a>
-                ';
+            $count_load_new_user = 0;
+            if ($count_load_new_user < 5) {
+                foreach (array_reverse($users_list) as $utmp) {
+                    if ($account != null && $utmp['_id'] == $user->_id) {
+                        continue;
+                    }
+                    echo '
+                        <a href="?detail&page=profile&user=' . $utmp['nick_name'] . '" class="user">
+                            <div class="user__image">
+                                <img src="' . $utmp['avatar'] . '" alt="avt">
+                            </div>
+                            <p class="user__about">' . $utmp['full_name'] . '</p>
+                        </a>
+                    ';
+                    $count_load_new_user++;
+                }
             }
             ?>
         </div>

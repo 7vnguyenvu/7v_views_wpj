@@ -53,22 +53,23 @@ if (isset($_POST['edit_news'])) {
 
     // XÓA ẢNH CŨ
     $get_typical_img = mysqli_fetch_array(mysqli_query($connection, 'select * from blogs where _ID = ' . $_POST['_id'] . ''))['TYPICAL_IMAGE'];
-    unlink('../' . $get_typical_img);
 
     $blog_image__path = "uploads/blog_imgs/";
     if (isset($_FILES['typical_image']['name']) && $_FILES['typical_image']['name'] != "") {
         // THAY ẢNH MỚI
+        unlink('../' . $get_typical_img);
         $blog_image__path = $blog_image__path . uniqid() . "__" . basename($_FILES['typical_image']['name']);
         move_uploaded_file($_FILES['typical_image']['tmp_name'], "../" . $blog_image__path);
+        $blog_image__path = $path_of_image_container . $blog_image__path;
     } else {
-        $blog_image__path = "images/no-image.png";
+        $blog_image__path = $get_typical_img;
     }
 
     $blog_tmp = (object) [
         '_id' => trim($_POST['_id']),
         'title' => trim($_POST['title']),
         'content' => trim($_POST['content']),
-        'typical_image' => trim($path_of_image_container . $blog_image__path),
+        'typical_image' => trim($blog_image__path),
         'user_id' => trim($_POST['user_id']),
         'created_at' => trim($_POST['created_at']),
         'updated_at' => (new DateTime())->format('Y-m-d h:i:s'),
@@ -87,7 +88,7 @@ if (isset($_POST['edit_news'])) {
 
 
     if (isset($_POST['formclient'])) {
-        header("Location: http://localhost/DO_AN_WEB/client/?page=blog");
+        header("Location: http://localhost/DO_AN_WEB/client/?detail&page=blog&id=$blog_tmp->_id");
     } else {
         header("Location: ../?page=blog ");
     }

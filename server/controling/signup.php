@@ -2,7 +2,7 @@
 
 include_once "../configs/dbconfig.php";
 
-$location = isset($_POST['formclient']) ? "http://localhost/DO_AN_WEB/client/" : "../";
+// $location = isset($_POST['formclient']) ? "http://localhost/DO_AN_WEB/client/" : "../";
 
 $name_of_user = isset($_POST['name_of_user']) ? trim($_POST['name_of_user']) : null;
 $uname = isset($_POST['username']) ? trim($_POST['username']) : null;
@@ -35,7 +35,7 @@ if ($name_of_user && $uname && $upass && $urepass) {
             $sql_postaccount = "insert into accounts values ($next_account_id,'$uname','$urepass',$default_level, $default_lock)";
             mysqli_query($connection, $sql_postaccount);
 
-            $sql_postuser = "insert into users values ($new_user_id, $next_account_id, '', '$name_of_user', '$name_of_user', '@$nickname_user', '', '', 'http://localhost/DO_AN_WEB/server/images/no-image-user.png', 'http://localhost/DO_AN_WEB/server/images/no-image-cover.png', 0, 0, '', '', '', '')";
+            $sql_postuser = "insert into users values ($new_user_id, $next_account_id, '', '$name_of_user', '$name_of_user', '@$nickname_user', '', '', 'http://localhost/DO_AN_WEB/server/images/no-image-user.png', 'http://localhost/DO_AN_WEB/server/images/no-image-cover.png', '', '', '', '')";
 
             mysqli_query($connection, $sql_postuser);
 
@@ -49,15 +49,31 @@ if ($name_of_user && $uname && $upass && $urepass) {
 
             session_start();
             $_SESSION['user_logged'] = $user_logged;
-            header("Location: $location");
+            echo '
+                <script>
+                    history.back()
+                </script>
+            ';
         } else {
-            header("Location: $location");
+            echo '
+                <script>
+                    history.back()
+                </script>
+            ';
         }
     } catch (Exception $e) {
-        header("Location: $location");
+        echo '
+            <script>
+                history.back()
+            </script>
+        ';
     }
 }
-header("Location: $location");
+echo '
+    <script>
+        history.back()
+    </script>
+';
 
 function remove_vncode_and_spaces($str)
 {

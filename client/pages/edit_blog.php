@@ -11,12 +11,12 @@ foreach ($blogs_list as $blog) {
 <form class="add-form" action="<?php echo $server_path ?>controling/handle_edit.php" method="post" enctype="multipart/form-data">
     <div class="row_title">
         <p>#> Chỉnh sửa bài viết</p>
-        <a href="<?php echo $server_path ?>controling/handle_delete.php?del_blog&formclient&id=<?php echo $_GET['id'] ?>" onclick="Handle_OnDel(event, <?php echo $_GET['id'] ?>)" class="delete_blog">Xóa bỏ<i class="fa-solid fa-trash-can"></i></a>
+        <a href="<?php echo $server_path ?>controling/handle_delete.php?del_blog&formclient&id=<?php echo $_GET['id'] ?>&user_id=<?php echo $_GET['user'] ?>" onclick="Handle_OnDel(event, <?php echo $_GET['id'] ?>)" class="delete_blog">Xóa bỏ<i class="fa-solid fa-trash-can"></i></a>
     </div>
 
     <div class="row">
         <label for="typical_image" id="blog__tyimg-label">
-            <img style="width: 101%; height: 101%; object-fit: contain;" src="<?php echo $got_blog['typical_image'] ?>" alt="">
+            <img style="width: 101%; height: 101%; object-fit: contain;" src="<?php echo trim($got_blog['typical_image']) != '' ? $got_blog['typical_image'] : $server_path . 'images/no-image.png' ?>" alt="">
         </label>
         <input type="file" id="typical_image" class="blog__tyimg-input" name="typical_image" accept="image/png, image/gif, image/jpeg" />
     </div>

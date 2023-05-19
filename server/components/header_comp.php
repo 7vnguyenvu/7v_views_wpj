@@ -19,12 +19,12 @@
                 $user_avt = trim($user['AVATAR']) != "" ? $user['AVATAR'] : 'images/no-image-user.png';
             }
 
-            echo '<p class="action__blogs">Bài viết của tôi</p>
-            <i class="fa-solid fa-bell action__notify"></i>
-            <div id="action__user" class="action__user">
-                <p>' . $user['LAST_NAME'] . '</p>
-                <img src="' . $user_avt . '" alt="Hình của user">
-            </div>';
+            echo '
+                <div id="action__user" class="action__user">
+                    <p>' . $user['LAST_NAME'] . '</p>
+                    <img src="' . $user_avt . '" alt="Hình của user">
+                </div>
+            ';
         } else {
             echo '<button id="bSignUp" style="--bcolor: #ffff00; --color: var(--dark-color); --hover: var(--second-color)" >Đăng ký</button>';
             echo '<button id="bSignIn" style="--bcolor: var(--primary-color); --color: var(--light-color); --hover: #e00552" >Đăng nhập</button>';

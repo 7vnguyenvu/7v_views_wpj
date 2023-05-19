@@ -20,12 +20,12 @@ foreach ($topics_list as $topic) {
 ?>
 
 <div class="detail__container">
-    <a href="./" class="detail__back">&lt;# Trở lại</a>
-
+    <a onclick="history.back()" class="detail__back" style="--mt: 12px;">&lt;# Trở lại</a>
+    <a href="./" class="detail__back_origin" style="--mt: 48px;">&lt;# Về Trang tin</a>
     <div class="detail__content">
         <div class="topic-timecreated">
             <h4 class="topic"><?php echo $curr_news_topic ?></h4>
-            <p class="timecreated"><?php echo $curr_news['created_at'] ?></p>
+            <p class="timecreated"><?php echo Get_Time_Passed($curr_news['created_at']) ?> ●</p>
         </div>
         <div class="title">
             <h1><?php echo $curr_news['title'] ?></h1>
@@ -47,7 +47,7 @@ foreach ($topics_list as $topic) {
             if ($news['_id'] == $curr_news['_id']) {
                 continue;
             } else {
-                if ($count_item < 4) {
+                if ($count_item < 12) {
                     $topic_tmp = 'Xã hội';
                     foreach ($topics_list as $topic) {
                         if ($topic['_id'] == $news['topic_id']) {
@@ -63,7 +63,7 @@ foreach ($topics_list as $topic) {
                         </a>
                         <div class="text">
                             <a href="?detail&page=news&id=' . $news['_id'] . ' " class="title">' . $news['title'] . '</a>
-                            <p class="other">' . $topic_tmp . ' | ' . $news['created_at'] . '</p>
+                            <p class="other">' . $topic_tmp . ' ● ' . Get_Time_Passed($news['created_at']) . '</p>
                         </div>
                     </div>
                 ';

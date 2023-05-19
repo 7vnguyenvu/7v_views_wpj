@@ -2,7 +2,7 @@
 session_start();
 include_once "../configs/dbconfig.php";
 
-$location = isset($_POST['formclient']) ? "http://localhost/DO_AN_WEB/client/" : "../";
+// $location = isset($_POST['formclient']) ? "http://localhost/DO_AN_WEB/client/" : "../";
 
 $uname = isset($_POST['username']) ? $_POST['username'] : null;
 $upass = isset($_POST['password']) ? md5($_POST['password']) : null;
@@ -19,7 +19,7 @@ if ($uname && $upass) {
         echo '
             <script>
                 alert("Tài khoản không tồn tại");
-                location.href = "' . $location . '";
+                history.back();
             </script>
         ';
     } else {
@@ -29,7 +29,7 @@ if ($uname && $upass) {
             echo '
                 <script>
                     alert("Tài khoản của bạn đã bị khóa!");
-                    location.href = "' . $location . '";
+                    history.back();                    
                 </script>
             ';
         } elseif (password_verify($upass, password_hash($row['USER_PASS'], PASSWORD_DEFAULT))) {
@@ -42,12 +42,16 @@ if ($uname && $upass) {
             ];
 
             $_SESSION['user_logged'] = $user_logged;
-            header("Location: $location");
+            echo '
+                <script>
+                    history.back()
+                </script>
+            ';
         } else {
             echo '
                 <script>
                     alert("Tài khoản không hợp lệ");
-                    // location.href = "' . $location . '";
+                    history.back();
                 </script>
             ';
         }
