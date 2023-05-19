@@ -1,7 +1,4 @@
 <?php
-include_once "./configs/dbconfig.php";
-
-$got_account = mysqli_fetch_array(mysqli_query($connection, "select * from accounts where _ID =  " . $_GET['id'] . ""), 1);
 ?>
 
 <form class="add-form" action="./controling/handle_edit.php" method="post" enctype="multipart/form-data" onsubmit="Handle_ChangePass(event)">
@@ -12,7 +9,7 @@ $got_account = mysqli_fetch_array(mysqli_query($connection, "select * from accou
     <div class="cluster">
         <div class="row cluster__row">
             <label style="--width: 30%" for="username">Tên đăng nhập</label>
-            <input disabled type="text" id="username" placeholder="Tên đăng nhập" value="<?php echo $got_account['USER_NAME'] ?>" />
+            <input disabled type="text" id="username" placeholder="Tên đăng nhập" />
         </div>
     </div>
 

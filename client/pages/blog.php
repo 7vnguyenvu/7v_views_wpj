@@ -1,5 +1,4 @@
 <?php
-include "./call_api/blogs.php";
 
 $user_filler = isset($_GET['user']) ? $_GET['user'] : null;
 
@@ -109,10 +108,10 @@ if ($user_filler) {
                 <h2>Tùy chọn</h2>
                 <div class="home__action-select">
                     <a href="?page=add_blog">
-                        Viết Blog
+                    <i class="fa-solid fa-pen" style="margin-right: 8px;"></i>Viết Blog
                     </a>
-                    <a href="?page=blog&user=<?php echo $user->_id ?>">
-                        Bài viết của tôi
+                    <a href="?page=blog&user=' . $user->_id . '">
+                    <i class="fa-solid fa-paperclip" style="margin-right: 8px;"></i>Bài viết của tôi
                     </a>
                 </div>
             ';
@@ -122,12 +121,18 @@ if ($user_filler) {
         <h2>Người dùng mới</h2>
 
         <div class="home__action-select">
+
+
+
             <?php
             foreach ($users_list as $utmp) {
                 echo '
-                    <a href="?detail&page=profile&user=' . $utmp['nick_name'] . '" >
-                        ' . $utmp['full_name'] . '
-                    </a>
+                <a href="?detail&page=profile&user=' . $utmp['nick_name'] . '" class="user">
+                    <div class="user__image">
+                        <img src="' . $utmp['avatar'] . '" alt="avt">
+                    </div>
+                    <p class="user__about">' . $utmp['full_name'] . '</p>
+                </a>
                 ';
             }
             ?>

@@ -1,5 +1,5 @@
 <?php
-$handle_add = "http://localhost/DO_AN_WEB/server/controling/handle_add.php";
+$handle_add = $server_path . "controling/handle_add.php";
 
 ?>
 <form class="add-form" action="<?php echo $handle_add ?>" method="post" enctype="multipart/form-data">

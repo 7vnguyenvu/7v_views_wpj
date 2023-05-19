@@ -1,6 +1,8 @@
 <?php
 
+
 session_start();
 unset($_SESSION['user_logged']);
 
-header("Location: ../");
+$location = isset($_GET['formclient']) ? "http://localhost/DO_AN_WEB/client/" : "../";
+header("Location: $location");

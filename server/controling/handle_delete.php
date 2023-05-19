@@ -16,7 +16,11 @@ if (isset($_GET['del_news'])) {
     $sql_delblog = 'delete from blogs where _ID = ' . $_GET['id'] . '';
     unlink('../' . $get_typical_img);
     mysqli_query($connection, $sql_delblog);
-    header("Location: ../?page=blog");
+    if (isset($_POST['formclient'])) {
+        header("Location: http://localhost/DO_AN_WEB/client/?page=blog");
+    } else {
+        header("Location: ../?page=blog ");
+    }
 } elseif (isset($_GET['del_account'])) {
     // XÓA TÀI KHOẢN -> VỚI HÌNH THỨC KHÓA
     $sql_lock = "update accounts set USER_LOCK = 1 where _ID = " . $_GET['id'] . "";

@@ -49,6 +49,7 @@ foreach ($comments_list as $comment) {
     <div class="detail__content blog">
         <div class="topic-timecreated">
             <h4 class="topic">Thông tin bài viết</h4>
+            <?php echo $curr_bolg['user_id'] == $user->_id ? '<a href="?page=edit_blog&id=' . $curr_bolg['_id'] . '">Chỉnh sửa <i class="fa-solid fa-pen-to-square"></i></a>' : '' ?>
         </div>
         <div class="header">
             <div class="header__user">

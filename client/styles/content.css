@@ -1,4 +1,5 @@
 @import url("../pages/styles/page_styles.css");
+@import url("../pages/styles/explore.css");
 
 .main .content {
     background-color: var(--bg-color);

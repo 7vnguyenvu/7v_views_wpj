@@ -1,0 +1,100 @@
+.explore_container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.explore_container h1 {
+    background-color: var(--bg-color);
+    padding: 0 20px;
+    border-left: 8px solid var(--primary-color);
+    border-bottom: 8px solid var(--primary-color);
+    border-end-start-radius: 28px;
+    position: sticky;
+    top: var(--header-height);
+}
+
+.explore_container .explore__users-area {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 32px;
+    margin-left: calc(((1366.4px - (300px * 4)) / 4) / 2 * -1);
+}
+
+.explore_user {
+    width: 300px;
+    height: 150px;
+    margin-left: calc((1366.4px - (300px * 4)) / 4);
+    margin-bottom: 40px;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    padding: 10px;
+    box-shadow: 2px 2px 4px #ccc;
+}
+
+.explore_user .user__left {
+    width: 120px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-right: 10px;
+}
+
+.explore_user .image {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.explore_user img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.explore_user button {
+    margin-top: auto;
+    width: 100%;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    padding: 4px 8px;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    font-weight: bold;
+}
+
+.explore_user button:hover {
+    cursor: pointer;
+    background-color: var(--second-color);
+    color: var(--light-color);
+}
+.explore_user button:active {
+    cursor: pointer;
+    background-color: var(--light-color);
+    color: var(--primary-color);
+}
+
+.explore_user .user__right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.explore_user .name {
+    font-size: 20px;
+}
+.explore_user .page {
+    font-weight: 100;
+}
+
+.explore_user .about {
+    margin-top: auto;
+    text-align: center;
+}

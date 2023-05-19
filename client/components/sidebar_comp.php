@@ -34,7 +34,7 @@
     <?php
     if ($account != null) {
         echo '
-        <form class="sign-out" action="./controling/signout.php" method="post" onsubmit="Handle_OnSubmit(event)">
+        <form class="sign-out" action="' . $server_path . 'controling/signout.php?formclient" method="post" onsubmit="Handle_OnSubmit(event)">
             <nav class="navlink">
                 <button type="submit">
                     <i class="fa-solid fa-right-from-bracket"></i>

@@ -1,18 +1,22 @@
 <?php
-include_once "./configs/dbconfig.php";
-$get_topics = mysqli_query($connection, "select * from topics");
 
+$got_blog = null;
+foreach ($blogs_list as $blog) {
+    if ($blog['_id'] == $_GET['id']) {
+        $got_blog = $blog;
+    }
+}
 
-$got_blog = mysqli_fetch_array(mysqli_query($connection, "select * from blogs where _ID =  " . $_GET['id'] . ""), 1);
 ?>
-<form class="add-form" action="./controling/handle_edit.php" method="post" enctype="multipart/form-data">
+<form class="add-form" action="<?php echo $server_path ?>controling/handle_edit.php" method="post" enctype="multipart/form-data">
     <div class="row_title">
         <p>#> Chỉnh sửa bài viết</p>
+        <a href="<?php echo $server_path ?>controling/handle_delete.php?del_blog&formclient&id=<?php echo $_GET['id'] ?>" onclick="Handle_OnDel(event, <?php echo $_GET['id'] ?>)" class="delete_blog">Xóa bỏ<i class="fa-solid fa-trash-can"></i></a>
     </div>
 
     <div class="row">
         <label for="typical_image" id="blog__tyimg-label">
-            <img style="width: 101%; height: 101%; object-fit: contain;" src="<?php echo $got_blog['TYPICAL_IMAGE'] ?>" alt="">
+            <img style="width: 101%; height: 101%; object-fit: contain;" src="<?php echo $got_blog['typical_image'] ?>" alt="">
         </label>
         <input type="file" id="typical_image" class="blog__tyimg-input" name="typical_image" accept="image/png, image/gif, image/jpeg" />
     </div>
@@ -21,16 +25,17 @@ $got_blog = mysqli_fetch_array(mysqli_query($connection, "select * from blogs wh
         <label id="del_img">Xóa</label>
     </div>
     <div class="row">
-        <input type="text" class="blog__title-input" name="title" placeholder="Tiêu đề" value="<?php echo $got_blog['TITLE'] ?>" />
+        <input type="text" class="blog__title-input" name="title" placeholder="Tiêu đề" value="<?php echo $got_blog['title'] ?>" />
     </div>
 
     <div class="row">
-        <textarea required name="content" id="content"><?php echo $got_blog['CONTENT'] ?></textarea>
+        <textarea required name="content" id="content"><?php echo $got_blog['content'] ?></textarea>
     </div>
 
-    <input type="hidden" name="_id" value="<?php echo $got_blog['_ID'] ?>" />
-    <input type="hidden" name="user_id" value="<?php echo $got_blog['USER_ID'] ?>" />
-    <input type="hidden" id="created_at" name="created_at" value="<?php echo $got_blog['CREATED_AT'] ?>" />
+    <input type="hidden" name="_id" value="<?php echo $got_blog['_id'] ?>" />
+    <input type="hidden" name="user_id" value="<?php echo $got_blog['user_id'] ?>" />
+    <input type="hidden" id="created_at" name="created_at" value="<?php echo $got_blog['created_at'] ?>" />
+    <input type="hidden" name="formclient" />
 
     <br />
 
@@ -70,12 +75,17 @@ $got_blog = mysqli_fetch_array(mysqli_query($connection, "select * from blogs wh
     }
 
     btn_deleteIMG.onclick = () => {
-        img_review.src = "./images/no-image.png";
+        img_review.src = "<?php echo $server_path ?>images/no-image.png";
 
         btn_resetIMG.style.display = "block";
         btn_resetIMG.onclick = () => {
             img_review.src = src_tmp;
             btn_resetIMG.style.display = "none";
         }
+    }
+
+    const Handle_OnDel = (e, id) => {
+        if (confirm(`Xác nhận xóa dữ liệu ${id}`) == false)
+            e.preventDefault();
     }
 </script>

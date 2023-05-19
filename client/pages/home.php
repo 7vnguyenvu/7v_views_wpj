@@ -1,7 +1,4 @@
 <?php
-include "./call_api/news.php";
-include "./call_api/topics.php";
-
 $topic_filler = isset($_GET['topic']) ? $_GET['topic'] : null;
 
 $new_list_News = $news_list;
@@ -18,8 +15,6 @@ if ($topic_filler) {
         $notify = "Không có tin nào về chủ đề này!";
     }
 }
-
-
 ?>
 
 <div class="home">
@@ -34,7 +29,6 @@ if ($topic_filler) {
             ";
         }
         ?>
-
         <h1>Tin mới nhất</h1>
         <div class="home__content-hot">
             <?php
@@ -58,10 +52,8 @@ if ($topic_filler) {
             </div>
         </div>
         <div class="home__content-items">
-
             <?php
             for ($i = 1; $i < count($new_list_News); $i++) {
-
                 $topic_tmp = 'Xã hội';
                 foreach ($topics_list as $topic) {
                     if ($topic['_id'] == $new_list_News[$i]['topic_id']) {
@@ -69,7 +61,6 @@ if ($topic_filler) {
                         break;
                     }
                 }
-
                 echo '
                     <div class="item">
                         <a href="?detail&page=news&id=' . $new_list_News[$i]['_id'] . ' " class="image">
@@ -83,15 +74,11 @@ if ($topic_filler) {
                 ';
             }
             ?>
-
         </div>
-
-
     </div>
 
     <div class="home__action">
         <h2>Danh sách chủ đề</h2>
-
         <div class="home__action-select">
             <?php
             foreach ($topics_list as $topic) {
@@ -104,12 +91,4 @@ if ($topic_filler) {
             ?>
         </div>
     </div>
-
 </div>
-
-<script>
-    const Handle_OnDel = (e, id) => {
-        if (confirm(`Xác nhận xóa dữ liệu ${id}`) == false)
-            e.preventDefault();
-    }
-</script>
