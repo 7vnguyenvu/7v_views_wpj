@@ -1,7 +1,7 @@
 <?php
 include_once "../configs/dbconfig.php";
 
-$path_of_image_container = "http://localhost/DO_AN_WEB/server/";
+$path_of_image_container = "http://localhost/7v_views_wpj/server/";
 
 if (isset($_POST['add_news'])) {
 
@@ -91,7 +91,7 @@ if (isset($_POST['add_news'])) {
     mysqli_query($connection, $sql_postblog);
 
     if (isset($_POST['formclient'])) {
-        header("Location: http://localhost/DO_AN_WEB/client/?page=blog");
+        header("Location: http://localhost/7v_views_wpj/client/?page=blog");
     } else {
         header("Location: ../?page=blog ");
     }
@@ -115,7 +115,7 @@ if (isset($_POST['add_news'])) {
 
             $sql_postaccount = "insert into accounts values ($next_account_id,'$uname','$urepass',$default_level, $default_lock)";
 
-            $sql_postuser = "insert into users values ($new_user_id, $next_account_id, '', '$name_of_user', '$name_of_user', '@$nickname_user', '', '', 'http://localhost/DO_AN_WEB/server/images/no-image-user.png', 'http://localhost/DO_AN_WEB/server/images/no-image-cover.png', 0, 0, '', '', '', '')";
+            $sql_postuser = "insert into users values ($new_user_id, $next_account_id, '', '$name_of_user', '$name_of_user', '@$nickname_user', '', '', 'http://localhost/7v_views_wpj/server/images/no-image-user.png', 'http://localhost/7v_views_wpj/server/images/no-image-cover.png', 0, 0, '', '', '', '')";
 
             mysqli_query($connection, $sql_postaccount);
             mysqli_query($connection, $sql_postuser);

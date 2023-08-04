@@ -1,5 +1,5 @@
 <?php
-$handle_like = "http://localhost/DO_AN_WEB/server/controling/handle_like.php";
+$handle_like = "http://localhost/7v_views_wpj/server/controling/handle_like.php";
 
 $curr_blog = null;
 foreach ($blogs_list as $blogs) {
@@ -9,8 +9,8 @@ foreach ($blogs_list as $blogs) {
     }
 }
 
-$amount_like = json_decode(file_get_contents("http://localhost/DO_AN_WEB/server/call_api_server/count.php?like&id=" . $curr_blog['_id'] . ""));
-$amount_cmt = json_decode(file_get_contents("http://localhost/DO_AN_WEB/server/call_api_server/count.php?cmt&id=" . $curr_blog['_id'] . ""));
+$amount_like = json_decode(file_get_contents("http://localhost/7v_views_wpj/server/call_api_server/count.php?like&id=" . $curr_blog['_id'] . ""));
+$amount_cmt = json_decode(file_get_contents("http://localhost/7v_views_wpj/server/call_api_server/count.php?cmt&id=" . $curr_blog['_id'] . ""));
 
 $user_of_blog = null;
 foreach ($users_list as $utmp) {

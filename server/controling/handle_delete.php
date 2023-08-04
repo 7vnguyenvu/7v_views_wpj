@@ -17,7 +17,7 @@ if (isset($_GET['del_news'])) {
     unlink('../' . $get_typical_img);
     mysqli_query($connection, $sql_delblog);
     if (isset($_GET['formclient'])) {
-        header("Location: http://localhost/DO_AN_WEB/client/?page=blog&user=" . $_GET['user_id'] . "");
+        header("Location: http://localhost/7v_views_wpj/client/?page=blog&user=" . $_GET['user_id'] . "");
     } else {
         echo '
             <script>

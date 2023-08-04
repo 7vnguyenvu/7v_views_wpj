@@ -1,7 +1,7 @@
 <?php
 include_once "../configs/dbconfig.php";
 
-$path_of_image_container = "http://localhost/DO_AN_WEB/server/";
+$path_of_image_container = "http://localhost/7v_views_wpj/server/";
 
 if (isset($_POST['edit_news'])) {
 
@@ -88,7 +88,7 @@ if (isset($_POST['edit_news'])) {
 
 
     if (isset($_POST['formclient'])) {
-        header("Location: http://localhost/DO_AN_WEB/client/?detail&page=blog&id=$blog_tmp->_id");
+        header("Location: http://localhost/7v_views_wpj/client/?detail&page=blog&id=$blog_tmp->_id");
     } else {
         header("Location: ../?page=blog ");
     }

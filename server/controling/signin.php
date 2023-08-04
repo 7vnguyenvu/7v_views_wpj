@@ -2,7 +2,7 @@
 session_start();
 include_once "../configs/dbconfig.php";
 
-// $location = isset($_POST['formclient']) ? "http://localhost/DO_AN_WEB/client/" : "../";
+// $location = isset($_POST['formclient']) ? "http://localhost/7v_views_wpj/client/" : "../";
 
 $uname = isset($_POST['username']) ? $_POST['username'] : null;
 $upass = isset($_POST['password']) ? md5($_POST['password']) : null;

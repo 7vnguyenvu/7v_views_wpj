@@ -1,2 +1,2 @@
 <?php
-$server_path = 'http://localhost/DO_AN_WEB/server/';
+$server_path = 'http://localhost/7v_views_wpj/server/';

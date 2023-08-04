@@ -77,7 +77,7 @@ $get_accounts_locked = mysqli_query($connection, "select * from accounts where U
                                 <td>' . $user['FIRST_NAME'] . '</td>
                                 <td>' . $user['LAST_NAME'] . '</td>
                                 <td width="300px">' . $user['FULL_NAME'] . '</td>
-                                <td  width="150px"><a href="http://localhost/DO_AN_WEB/client/?detail&page=profile&user=' . $user['NICK_NAME'] . '" target="_blank">' . $user['NICK_NAME'] . '</a></td>
+                                <td  width="150px"><a href="http://localhost/7v_views_wpj/client/?detail&page=profile&user=' . $user['NICK_NAME'] . '" target="_blank">' . $user['NICK_NAME'] . '</a></td>
                             </tr>
                         ';
                     }

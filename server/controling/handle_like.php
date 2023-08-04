@@ -20,7 +20,7 @@ if ($getquery->num_rows == 0) {
 
 
 mysqli_query($connection, $sql_like);
-// header("Location: http://localhost/DO_AN_WEB/client/?detail&page=blog&id=$blog_id");
+// header("Location: http://localhost/7v_views_wpj/client/?detail&page=blog&id=$blog_id");
 echo '
     <script>
         history.back()

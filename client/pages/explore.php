@@ -1,5 +1,5 @@
 <?php
-$handle_follow = "http://localhost/DO_AN_WEB/server/controling/handle_follow.php";
+$handle_follow = "http://localhost/7v_views_wpj/server/controling/handle_follow.php";
 ?>
 <div class="explore_container">
 
@@ -42,7 +42,7 @@ $handle_follow = "http://localhost/DO_AN_WEB/server/controling/handle_follow.php
                 echo '<button>Follow</button>';
             }
 
-            $count_flw = json_decode(file_get_contents("http://localhost/DO_AN_WEB/server/call_api_server/count.php?flw&id=" . $us['_id'] . ""));
+            $count_flw = json_decode(file_get_contents("http://localhost/7v_views_wpj/server/call_api_server/count.php?flw&id=" . $us['_id'] . ""));
 
 
             echo '</div>

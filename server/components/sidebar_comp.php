@@ -20,7 +20,7 @@
             <p>Blogs</p>
         </a>
 
-        <a href="http://localhost/DO_AN_WEB/client/" target="_blank">
+        <a href="http://localhost/7v_views_wpj/client/" target="_blank">
             <i class="fa-solid fa-tv"></i>
             <p>Client</p>
         </a>
