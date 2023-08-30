@@ -18,7 +18,7 @@
 
 1. Tìm vào thư mục htdocs của xampp -> Nên xóa hết các folder và file khi vừa cài đặt xong (cho đỡ vướng)
 2. Mở git base here (nếu đã tải git) hoặc mở cmd tại thư mục htdocs
-3. Nhập: git clone git@github.com:vunguyen-dev-er/7v_views_wpj.git
+3. Nhập: git clone git@github.com:vunguyen-dev-er/7v_views_wpj.git <hoặc> git clone https://github.com/vungen-dev-er/7v_views_wpj
 
 #### Setup database tại phpMyAdmin
 
@@ -26,7 +26,7 @@
 2. Chọn "Cơ sở dữ liệu" -> Tại "Tạo cơ sở dữ liệu" -> Nhập tên cơ sở dữ liệu là "wp_7views"
 3. Vào cơ sở dữ liệu "wp_7views" -> Nhập (Import) -> Chọn file
 4. Tìm vào thư mục: xampp/htdocs/7v_views_wpj/server/database_setup/wp_7views.sql
-5. Nhập (Go) -> Dữ liệu sẽ được thêm vào -> Database có thể sử dụng.
+5. Chọn Import -> Dữ liệu sẽ được thêm vào -> Database có thể sử dụng.
 
 #### Chạy dự án
 
