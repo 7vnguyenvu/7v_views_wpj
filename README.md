@@ -18,10 +18,7 @@
 
 1. Tìm vào thư mục htdocs của xampp -> Nên xóa hết các folder và file khi vừa cài đặt xong (cho đỡ vướng)
 2. Mở git base here (nếu đã tải git) hoặc mở cmd tại thư mục htdocs
-3. Nhập vào câu lệnh:
-    git clone git@github.com:vunguyen-dev-er/7v_views_wpj.git
-       <hoặc>
-    git clone https://github.com/vungen-dev-er/7v_views_wpj
+3. Nhập vào câu lệnh: ```git clone git@github.com:vunguyen-dev-er/7v_views_wpj.git```
 
 #### Setup database tại phpMyAdmin
 
